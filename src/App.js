@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import Home from './components/Home'
 import Dashboard from './components/Dashboard'
+import NewTicket from './components/NewTicket'
 import axios from 'axios';
 
 export default class App extends Component {
@@ -79,6 +80,7 @@ export default class App extends Component {
                   loggedInStatus={this.state.loggedInStatus} 
                   />
               )} />
+            <Route path="/dashboard/new" component={NewTicket}></Route>
           </Switch>
         </BrowserRouter>
       </div>
