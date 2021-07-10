@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTicket } from '../redux/ticketSlice';
 
 const AddTicket = () => {
 	const [value, setValue] = useState('');
 
+    const dispatch = useDispatch();
+
 	const onSubmit = (event) => {
 		event.preventDefault();
-		console.log("user entered: " + value)
+		dispatch(
+            addTicket({
+                title: value
+            })
+        )
 	};
 
 	return (

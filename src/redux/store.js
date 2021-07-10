@@ -1,8 +1,8 @@
 import {configureStore} from '@reduxjs/toolkit';
-import todoReducer from './todoSlice';
+import ticketReducer from './ticketSlice';
 
 export default configureStore({
     reducer: {
-        // tickets: ticketReducer,
+        tickets: ticketReducer,
     }
 })
