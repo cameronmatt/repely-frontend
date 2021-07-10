@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addTicket } from '../redux/ticketSlice';
+import { addTicketAsync } from '../redux/ticketSlice';
 
 const AddTicket = () => {
 	const [value, setValue] = useState('');
@@ -10,7 +10,7 @@ const AddTicket = () => {
 	const onSubmit = (event) => {
 		event.preventDefault();
 		dispatch(
-            addTicket({
+            addTicketAsync({
                 title: value
             })
         )

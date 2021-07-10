@@ -12,6 +12,23 @@ export const getTicketsAsync = createAsyncThunk(
 
 );
 
+export const addTicketAsync = createAsyncThunk(
+    'todos/addTicketAsync', 
+    async (payload) => {
+        const response = await fetch('http://localhost:3001/api/v1/tickets', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'Application/json',
+            },
+            body: JSON.stringify({ title: payload.title })
+        });
+        if(response.ok) {
+            const ticket = await response.json();
+            return { ticket }
+        }
+    }
+);
+
 const ticketSlice = createSlice({
     name: "tickets",
     initialState: [
@@ -45,6 +62,9 @@ const ticketSlice = createSlice({
         [getTicketsAsync.fulfilled]: (state, action) => {
             console.log('fetched data successfully!')
             return action.payload.tickets
+        },
+        [addTicketAsync.fulfilled]: (state, action) => {
+            state.push(action.payload.ticket);
         },
     }
 })
