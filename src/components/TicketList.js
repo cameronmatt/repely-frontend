@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import Ticket from './Ticket';
+import { useSelector } from 'react-redux';
 
 const TicketList = () => {
 
-    const tickets = [
-        { id: 1, title: 'ticket 1', status: 'new'},
-        { id: 2, title: 'ticket 2', status: 'new'},
-        { id: 3, title: 'ticket 3', status: 'new'},
-        { id: 4, title: 'ticket 4', status: 'new'},
-        { id: 5, title: 'ticket 5', status: 'done'},
-    ]
+    const tickets = useSelector((state) => state.tickets);
+	// This where I will need to filter my lists ^^^
 
     return (
 		<ul className='list-group'>

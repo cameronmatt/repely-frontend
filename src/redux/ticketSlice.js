@@ -5,9 +5,7 @@ const ticketSlice = createSlice({
     initialState: [
         { id: 1, title: 'ticket 1', status: 'new'},
         { id: 2, title: 'ticket 2', status: 'new'},
-        { id: 3, title: 'ticket 3', status: 'new'},
-        { id: 4, title: 'ticket 4', status: 'new'},
-        { id: 5, title: 'ticket 5', status: 'done'},
+        { id: 3, title: 'ticket 3', status: 'done'},
     ],
     reducers: {
         addTicket: (state, action) => {
@@ -17,10 +15,20 @@ const ticketSlice = createSlice({
                 status: 'new',
             };
             state.push(newTicket);
+        }, 
+        toggleStatus: (state, action) => {
+            const index = state.findIndex(
+                (ticket) => ticket.id ===action.payload.id
+                );
+                state[index].status = action.payload.status
         }
+        
     }
 })
 
-export const { addTicket } = ticketSlice.actions;
+export const { 
+    addTicket,
+    toggleStatus,
+ } = ticketSlice.actions;
 
 export default ticketSlice.reducer;
