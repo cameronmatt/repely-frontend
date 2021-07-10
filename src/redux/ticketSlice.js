@@ -1,5 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+export const getTicketsAsync = createAsyncThunk(
+    'todos/getTicketsAsync', 
+    async () => {
+        const response = await fetch('http://localhost:3001/api/v1/tickets');
+        if(response.ok) {
+            const tickets = await response.json();
+            return { tickets }
+        }
+    }
+
+);
+
 const ticketSlice = createSlice({
     name: "tickets",
     initialState: [
@@ -21,14 +33,26 @@ const ticketSlice = createSlice({
                 (ticket) => ticket.id ===action.payload.id
                 );
                 state[index].status = action.payload.status
-        }
-        
+        },
+        deleteTicket: (state, action) => {
+            return state.filter((ticket) => ticket.id !== action.payload.id)
+        },
+    },
+    extraReducers: {
+        [getTicketsAsync.pending]: (state, action) => {
+            console.log('fetching data...') //Could be used for loading
+        },
+        [getTicketsAsync.fulfilled]: (state, action) => {
+            console.log('fetched data successfully!')
+            return action.payload.tickets
+        },
     }
 })
 
 export const { 
     addTicket,
     toggleStatus,
+    deleteTicket,
  } = ticketSlice.actions;
 
 export default ticketSlice.reducer;
