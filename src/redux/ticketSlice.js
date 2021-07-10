@@ -29,13 +29,45 @@ export const addTicketAsync = createAsyncThunk(
     }
 );
 
+export const toggleStatusAsync = createAsyncThunk(
+    'todos/toggleStatusAsync', 
+    async (payload) => {
+        const response = await fetch(`http://localhost:3001/api/v1/tickets/${payload.id}`, {
+            method: 'PATCH', 
+            headers: {
+                'Content-Type': 'Application/json',
+            },
+            body: JSON.stringify({ status: payload.status })
+        });
+        if(response.ok) {
+            const ticket = await response.json();
+            return { id: ticket.id, status: ticket.status };
+        }
+    }
+
+);
+
+export const deleteTicketAsync = createAsyncThunk(
+    'todos/deleteTicketAsync', 
+    async (payload) => {
+        const response = await fetch(`http://localhost:3001/api/v1/tickets/${payload.id}`, {
+            method: 'DELETE', 
+            headers: {
+                'Content-Type': 'Application/json',
+            },
+            body: JSON.stringify({ id: payload.id })
+        });
+        if(response.ok) {
+            const tickets = await response.json();
+            return { tickets };
+        }
+    }
+
+);
+
 const ticketSlice = createSlice({
     name: "tickets",
-    initialState: [
-        { id: 1, title: 'ticket 1', status: 'new'},
-        { id: 2, title: 'ticket 2', status: 'new'},
-        { id: 3, title: 'ticket 3', status: 'done'},
-    ],
+    initialState: [],
     reducers: {
         addTicket: (state, action) => {
             const newTicket = {
@@ -65,6 +97,15 @@ const ticketSlice = createSlice({
         },
         [addTicketAsync.fulfilled]: (state, action) => {
             state.push(action.payload.ticket);
+        },
+        [toggleStatusAsync.fulfilled]: (state, action) => {
+            const index = state.findIndex(
+                (ticket) => ticket.id === action.payload.id
+            );
+            state[index].status = action.payload.status
+        },
+        [deleteTicketAsync.fulfilled]: (state, action) => {
+            return state.filter((ticket) => ticket.id !== action.payload.id)
         },
     }
 })

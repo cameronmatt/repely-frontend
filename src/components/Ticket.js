@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { toggleStatus, deleteTicket } from '../redux/ticketSlice';
+import { toggleStatusAsync, deleteTicketAsync } from '../redux/ticketSlice';
 
 const Ticket = ({ id, title, status }) => {
 
@@ -9,13 +9,13 @@ const Ticket = ({ id, title, status }) => {
     const handleStatusClick	 = () => {
 		dispatch(
 			// toggleStatus({ id: id, status: option.value})
-            toggleStatus({ id: id})
+            toggleStatusAsync({ id: id})
 		)
 	}
 
     const handleDeleteClick = () => {
 		dispatch(
-			deleteTicket({ id: id })
+			deleteTicketAsync({ id: id })
 		)
 	}
 
