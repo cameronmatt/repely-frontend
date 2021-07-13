@@ -9,6 +9,8 @@ function Dashboard(props) {
 
   const [modalOpen, setModalOpen] = useState(false);
 
+  console.log("login props", props)
+
    return (
     <div>
         <div>

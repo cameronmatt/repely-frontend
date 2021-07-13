@@ -57,8 +57,10 @@ export const deleteTicketAsync = createAsyncThunk(
             },
             body: JSON.stringify({ id: payload.id })
         });
+        console.log("looking for response", response.ok)
         if(response.ok) {
             const tickets = await response.json();
+            console.log("looking for tickets", tickets)
             return { tickets };
         }
     }

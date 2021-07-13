@@ -76,7 +76,8 @@ export default class App extends Component {
               render={props => (
                 <Dashboard 
                   {...props} 
-                  loggedInStatus={this.state.loggedInStatus} 
+                  loggedInStatus={this.state.loggedInStatus}
+                  user={this.state.user}
                   />
               )} />
             {/* <Route path="/dashboard/new" component={NewTicket}></Route> */}

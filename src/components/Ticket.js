@@ -6,10 +6,9 @@ const Ticket = ({ id, title, status }) => {
 
     const dispatch = useDispatch()
 
-    const handleStatusClick	 = () => {
+    const handleStatusChange = (event) => {
 		dispatch(
-			// toggleStatus({ id: id, status: option.value})
-            toggleStatusAsync({ id: id})
+            toggleStatusAsync({ id: id, status: event.target.value })
 		)
 	}
 
@@ -25,10 +24,9 @@ const Ticket = ({ id, title, status }) => {
 			<div class="card-body">
 				<h5 class="card-title">{title}</h5>
 					<select 
-						// type='checkbox' 
 						className='btn btn-warning'
-						// value={option.value}
-                        onChange={handleStatusClick}
+						value={status}
+                        onChange={handleStatusChange}
                         >Change Status
                         <option value="new">New</option>
                         <option value="wip">WIP</option>
