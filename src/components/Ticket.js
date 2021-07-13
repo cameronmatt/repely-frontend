@@ -20,9 +20,10 @@ const Ticket = ({ id, title, status }) => {
 	}
 
     return (
-		<li className={`list-group-item ${status && 'list-group-item-success'}`}>
-			<div className='d-flex justify-content-between'>
-				<span className='d-flex align-items-center'>
+		// <li className={`list-group-item ${status && 'list-group-item-success'}`}>
+		<li  class="card">
+			<div class="card-body">
+				<h5 class="card-title">{title}</h5>
 					<select 
 						// type='checkbox' 
 						className='btn btn-warning'
@@ -33,8 +34,8 @@ const Ticket = ({ id, title, status }) => {
                         <option value="wip">WIP</option>
                         <option value="done">Done</option>
 					</select>
-					{title}
-				</span>
+					
+				
 				<button onClick={handleDeleteClick} className='btn btn-danger'>Delete</button>
 			</div>
 		</li>
