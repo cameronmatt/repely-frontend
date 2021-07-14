@@ -18,7 +18,7 @@ function Dashboard(props) {
 
    return (
     <div>
-            <div class="navbar navbar-expand-md navbar-dark bg-light">
+            <div className="navbar navbar-expand-md navbar-dark bg-light">
               <h1>Repely</h1>
               <Button 
                 variant="success"
