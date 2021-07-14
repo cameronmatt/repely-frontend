@@ -2,32 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addTicketAsync } from '../redux/ticketSlice';
 import styled from 'styled-components';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
 
-export const modalBackground = styled.div`
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(200, 200, 200);
-	position: fixed;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+export const ModalBackground = styled.div`
+
 `;
-export const modalContainer = styled.div`
-	width: 500px;
-	height: 500px;
-	border-radius: 12px;
-	background-color: white;
-	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-	display: flex;
-	flex-direction: column;
-	padding: 25px;
+export const ModalContainer = styled.div`
+
 `;
 export const Col = styled.div`
 	
 `;
 
-const AddTicket = () => {
+const AddTicket = (props) => {
 	const [value, setValue] = useState('');
+	const [descriptionValue, setDescriptionValue] = useState('');
+	const [categoryValue, setCategoryValue] = useState('');
 
     const dispatch = useDispatch();
 
@@ -35,32 +26,56 @@ const AddTicket = () => {
 		event.preventDefault();
 		dispatch(
             addTicketAsync({
-                title: value
+                title: value,
+				description: descriptionValue,
+				category: categoryValue,
             })
         )
 	};
 
 	return (
-		<modalBackground>
-			<modalContainer>
-				<div className="titleCloseBtn">
+		<ModalBackground>
+			<ModalContainer>
+				<div>
 					<form onSubmit={onSubmit} className='form-inline mt-3 mb-3'>
 						<label className='sr-only'>Title</label>
 						<input
 							type='text'
 							className='form-control mb-2 mr-sm-2'
-							placeholder='Add ticket...'
+							placeholder='Add Title...'
 							value={value}
 							onChange={(event) => setValue(event.target.value)}
 						></input>
-
-						<button type='submit' className='btn btn-primary mb-2'>
+						<label className='sr-only'>Description</label>
+						<input
+							type='text'
+							className='form-control mb-2 mr-sm-2'
+							placeholder='Add Description...'
+							value={descriptionValue}
+							onChange={(event) => setDescriptionValue(event.target.value)}
+						></input>
+						<label className='sr-only'>Category</label>
+						<select 
+							class="form-select"
+							value={categoryValue}
+							onChange={(event) => setCategoryValue(event.target.value)}
+							>
+							<option selected>Select a category</option>
+							<option value="feedback">Feedback</option>
+							<option value="feature-request">Feature Request</option>
+							<option value="bug">Bug</option>
+						</select>
+						
+						<Button type='submit' variant="primary" onClick={props.onHide}>
 							Submit
-						</button>
+						</Button>
+						<Button variant="danger" onClick={props.onHide}>
+							Cancel
+						</Button>
 					</form>
 				</div>
-			</modalContainer>
-    	</modalBackground>
+			</ModalContainer>
+    	</ModalBackground>
 	);
 };
 

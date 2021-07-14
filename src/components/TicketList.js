@@ -11,29 +11,18 @@ export const Grid = styled.div`
 	height: 100vh;
 `;
 export const Row = styled.div`
-	display: flex;
-`;
-const media = {
-	xs: (styles) => `
-	@media only screen and (max-width: 480px) {
-		${styles}
-	}
-	`,
-}
-export const Col = styled.div`
-	float: ${(props) => props.size};
-	${(props) => props.collapse && media[props.collapse](`
-	display: none;
-	`)}
+	
 `;
 
+export const Col = styled.div`
+
+`;
 
 const TicketList = () => {
 
     const dispatch = useDispatch();
 
     const tickets = useSelector((state) => state.tickets);
-	// This where I will need to filter my lists ^^^
 
 	const newTickets = tickets.filter((ticket) => ticket.status === 'new')
 	const wipTickets = tickets.filter((ticket) => ticket.status === 'wip')

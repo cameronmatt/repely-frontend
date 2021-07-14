@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleStatusAsync, deleteTicketAsync } from '../redux/ticketSlice';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Ticket = ({ id, title, status }) => {
 
@@ -14,15 +15,16 @@ const Ticket = ({ id, title, status }) => {
 
     const handleDeleteClick = () => {
 		dispatch(
-			deleteTicketAsync({ id: id })
+			deleteTicketAsync({ id: id, status: "delete" })
 		)
 	}
+	
 
     return (
 		// <li className={`list-group-item ${status && 'list-group-item-success'}`}>
-		<li  class="card">
-			<div class="card-body">
-				<h5 class="card-title">{title}</h5>
+		<li  className="card">
+			<div className="card-body">
+				<h5 className="card-title">{title}</h5>
 					<select 
 						className='btn btn-warning'
 						value={status}

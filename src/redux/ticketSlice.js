@@ -20,7 +20,11 @@ export const addTicketAsync = createAsyncThunk(
             headers: {
                 'Content-Type': 'Application/json',
             },
-            body: JSON.stringify({ title: payload.title })
+            body: JSON.stringify({ 
+                title: payload.title,
+                description: payload.description,
+                category: payload.category,
+            })
         });
         if(response.ok) {
             const ticket = await response.json();
@@ -44,7 +48,6 @@ export const toggleStatusAsync = createAsyncThunk(
             return { id: ticket.id, status: ticket.status };
         }
     }
-
 );
 
 export const deleteTicketAsync = createAsyncThunk(
@@ -57,14 +60,11 @@ export const deleteTicketAsync = createAsyncThunk(
             },
             body: JSON.stringify({ id: payload.id })
         });
-        console.log("looking for response", response.ok)
         if(response.ok) {
             const tickets = await response.json();
-            console.log("looking for tickets", tickets)
             return { tickets };
         }
     }
-
 );
 
 const ticketSlice = createSlice({
@@ -94,7 +94,7 @@ const ticketSlice = createSlice({
             console.log('fetching data...') //Could be used for loading
         },
         [getTicketsAsync.fulfilled]: (state, action) => {
-            console.log('fetched data successfully!')
+            console.log('fetched data successfully!', action.payload.tickets)
             return action.payload.tickets
         },
         [addTicketAsync.fulfilled]: (state, action) => {

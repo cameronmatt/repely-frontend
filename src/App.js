@@ -80,7 +80,7 @@ export default class App extends Component {
                   user={this.state.user}
                   />
               )} />
-            {/* <Route path="/dashboard/new" component={NewTicket}></Route> */}
+            {/* <Route path="/dashboard/new" component={AddTicket}></Route> */}
           </Switch>
         </BrowserRouter>
       </div>
