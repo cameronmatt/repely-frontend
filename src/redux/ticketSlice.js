@@ -9,8 +9,18 @@ export const getTicketsAsync = createAsyncThunk(
             return { tickets }
         }
     }
-
 );
+
+// export const getTicketAsync = createAsyncThunk(
+//     'todos/getTicketAsync', 
+//     async (payload) => {
+//         const response = await fetch(`http://localhost:3001/api/v1/tickets/${payload.id}`);
+//         if(response.ok) {
+//             const ticket = await response.json();
+//             return { ticket }
+//         }
+//     }
+// );
 
 export const addTicketAsync = createAsyncThunk(
     'todos/addTicketAsync', 
@@ -79,9 +89,18 @@ const ticketSlice = createSlice({
             };
             state.push(newTicket);
         }, 
+        showTicket: (state, action) => {
+            console.log("WHAT IS STATE", state.tickets)
+            // const index = state.find(
+            //     (ticket) => ticket.id === action.payload.id
+            //     );
+            //     console.log("GET Ticket", action.payload)
+                // return state.filter((ticket) => ticket.id === action.payload.id) 
+                // this filtered all results and could be used for search purpose
+        },
         toggleStatus: (state, action) => {
             const index = state.findIndex(
-                (ticket) => ticket.id ===action.payload.id
+                (ticket) => ticket.id === action.payload.id
                 );
                 state[index].status = action.payload.status
         },
@@ -97,6 +116,10 @@ const ticketSlice = createSlice({
             console.log('fetched data successfully!', action.payload.tickets)
             return action.payload.tickets
         },
+        // [getTicketAsync.fulfilled]: (state, action) => {
+        //     console.log('One Ticket!', action.payload.ticket)
+        //     return action.payload.ticket
+        // },
         [addTicketAsync.fulfilled]: (state, action) => {
             state.push(action.payload.ticket);
         },
@@ -114,6 +137,7 @@ const ticketSlice = createSlice({
 
 export const { 
     addTicket,
+    showTicket,
     toggleStatus,
     deleteTicket,
  } = ticketSlice.actions;

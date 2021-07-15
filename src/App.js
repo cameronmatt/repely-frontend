@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import Home from './components/Home'
 import Dashboard from './components/Dashboard'
 import axios from 'axios';
+import AddTicket from './components/AddTicket';
 
 export default class App extends Component {
 
@@ -80,7 +81,7 @@ export default class App extends Component {
                   user={this.state.user}
                   />
               )} />
-            {/* <Route path="/dashboard/new" component={AddTicket}></Route> */}
+            <Route path="/dashboard/new" component={AddTicket}></Route>
           </Switch>
         </BrowserRouter>
       </div>

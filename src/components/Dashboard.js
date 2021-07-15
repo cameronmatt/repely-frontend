@@ -5,6 +5,20 @@ import AddTicket from './AddTicket';
 import TicketList from './TicketList';
 import TotalCompleteTickets from './TotalCompleteTickets';
 import { Button, Modal } from 'react-bootstrap';
+import styled from 'styled-components';
+
+export const Header = styled.div`
+  font-size: 40px;
+  font-weight: bold;
+  padding-left: 10px;
+`;export const ButtonStyle = styled.div`
+  margin-left: auto;
+`;
+export const User = styled.div`
+  margin-left: auto;
+  font-size: 20px;
+	font-weight: bold;
+`;
 
 function Dashboard(props) {
 
@@ -19,13 +33,15 @@ function Dashboard(props) {
    return (
     <div>
             <div className="navbar navbar-expand-md navbar-dark bg-light">
-              <h1>Repely</h1>
-              <Button 
-                variant="success"
-                onClick={modalOpen}
-                >
-                Create New Ticket
-              </Button>
+              <Header>Repely {'\uD83E\uDD9F'}</Header>
+              <ButtonStyle>
+                <Button 
+                  variant="success"
+                  onClick={modalOpen}
+                  >
+                  Create New Ticket
+                </Button>
+              </ButtonStyle>
               <Modal show={show} >
                 <Modal.Body>
                   <AddTicket onHide={modalClose}/>
@@ -41,11 +57,10 @@ function Dashboard(props) {
               Create New Ticket
               </Link>
                 {modalOpen && <AddTicket setOpenModal={setModalOpen} />} */}
-              <h4 className='text-right'>{props.user.email}</h4>
+              <User>{props.user.email}</User>
             </div>
 
             <div className='container bg-white p-4 mt-5'>
-              <h1>Tickets</h1>
               <TicketList />
               <TotalCompleteTickets />
             </div>

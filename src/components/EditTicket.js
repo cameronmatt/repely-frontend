@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleStatusAsync, deleteTicketAsync } from '../redux/ticketSlice';
+import { showTicket } from '../redux/ticketSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -15,42 +16,50 @@ export const Col = styled.div`
 	
 `;
 
-const EditTicket = ({ id, title, status, onHide }) => {
+const EditTicket = ({ id, onHide }) => {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const handleStatusChange = (event) => {
-		dispatch(
-            toggleStatusAsync({ id: id, status: event.target.value })
-		)
-	}
+    useEffect(() => {
+		dispatch(showTicket({ id: id }))
+	}, [dispatch])
 
-    const handleDeleteClick = () => {
-		dispatch(
-			deleteTicketAsync({ id: id, status: "delete" })
-		)
-	}
+    const ticket = useSelector((state) => state.ticket);
 
-        const [value, setValue] = useState('');
-        const [descriptionValue, setDescriptionValue] = useState('');
-        const [categoryValue, setCategoryValue] = useState('');
+    console.log('does this get the TICKET', ticket)
+
+    // const handleStatusChange = (event) => {
+	// 	dispatch(
+    //         toggleStatusAsync({ id: id, status: event.target.value })
+	// 	)
+	// }
+
+    // const handleDeleteClick = () => {
+	// 	dispatch(
+	// 		deleteTicketAsync({ id: id, status: "delete" })
+	// 	)
+	// }
+
+    //     const [value, setValue] = useState('');
+    //     const [descriptionValue, setDescriptionValue] = useState('');
+    //     const [categoryValue, setCategoryValue] = useState('');
     
-        const onSubmit = (event) => {
-            event.preventDefault();
-            dispatch(
-                // addTicketAsync({
-                //     title: value,
-                //     description: descriptionValue,
-                //     category: categoryValue,
-                // })
-            )
-        };
-	
+    //     const onSubmit = (event) => {
+    //         event.preventDefault();
+    //         dispatch(
+    //             toggleStatusAsync({
+    //                 title: value,
+    //                 description: descriptionValue,
+    //                 category: categoryValue,
+    //             })
+    //         )
+    //     };
+	 
 
     return (
         <ModalBackground>
             <ModalContainer>
-                <div>
+                {/* <div>
                     <form onSubmit={onSubmit} className='form-inline mt-3 mb-3'>
                         <label className='sr-only'>Title</label>
                         <input
@@ -58,7 +67,7 @@ const EditTicket = ({ id, title, status, onHide }) => {
                             className='form-control mb-2 mr-sm-2'
                             placeholder='Add Title...'
                             value={value}
-                            // onChange={(event) => setValue(event.target.value)}
+                            onChange={(event) => setValue(event.target.value)}
                         ></input>
                         <label className='sr-only'>Description</label>
                         <input
@@ -66,33 +75,30 @@ const EditTicket = ({ id, title, status, onHide }) => {
                             className='form-control mb-2 mr-sm-2'
                             placeholder='Add Description...'
                             value={descriptionValue}
-                            // onChange={(event) => setDescriptionValue(event.target.value)}
+                            onChange={(event) => setDescriptionValue(event.target.value)}
                         ></input>
                         <label className='sr-only'>Category</label>
                         <select 
-                            class="form-select"
+                            className="form-select"
                             value={categoryValue}
-                            // onChange={(event) => setCategoryValue(event.target.value)}
+                            onChange={(event) => setCategoryValue(event.target.value)}
                             >
-                            <option selected>Select a category</option>
+                            <option defaultValue>Select a category</option>
                             <option value="feedback">Feedback</option>
                             <option value="feature-request">Feature Request</option>
                             <option value="bug">Bug</option>
                         </select>
+                        <select 
+                            className='btn btn-warning'
+                            value={status}
+                            onChange={handleStatusChange}
+                            >Change Status
+                            <option value="new">New</option>
+                            <option value="wip">WIP</option>
+                            <option value="done">Done</option>
+                        </select>
+                        <Button onClick={handleDeleteClick} variant='outline-danger'>Delete</Button>
 
-                        <div className="card-body">
-                            <select 
-                                className='btn btn-warning'
-                                value={status}
-                                onChange={handleStatusChange}
-                                >Change Status
-                                <option value="new">New</option>
-                                <option value="wip">WIP</option>
-                                <option value="done">Done</option>
-                            </select>
-                            <button onClick={handleDeleteClick} className='btn btn-danger'>Delete</button>
-                        </div>
-                        
                         <Button type='submit' variant="primary" onClick={onHide}>
                             Submit
                         </Button>
@@ -100,12 +106,12 @@ const EditTicket = ({ id, title, status, onHide }) => {
                             Cancel
                         </Button>
                     </form>
-                </div>
+                </div> */}
             </ModalContainer>
         </ModalBackground>
         
-        );
-    };
+    );
+};
 
 
 export default EditTicket;
