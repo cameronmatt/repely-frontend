@@ -7,13 +7,32 @@ import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
 
 export const ModalBackground = styled.div`
-
+    
 `;
 export const ModalContainer = styled.div`
-
+    
 `;
-export const Col = styled.div`
-	
+export const CancelButton = styled.div`
+    float: right;
+`;
+
+export const DeleteButton = styled.div`
+    float: right;
+    padding: 10px;
+`;
+export const TicketTitle = styled.div`
+    width: 90%;
+    padding: 5px;
+`;
+export const TicketDescription = styled.div`
+    padding: 5px;
+`;
+export const TicketCategory = styled.div`
+    padding: 5px;
+`;
+export const StatusChange = styled.div`
+    padding: 10px;
+    float: left;
 `;
 
 const EditTicket = ({ id, onHide }) => {
@@ -24,41 +43,74 @@ const EditTicket = ({ id, onHide }) => {
 		dispatch(showTicket({ id: id }))
 	}, [dispatch])
 
-    const ticket = useSelector((state) => state.ticket);
+    const ticketData = useSelector((state) => state.tickets);
+    const selectedTicket = ticketData.find((ticket) => ticket.id === id)
 
-    console.log('does this get the TICKET', ticket)
+    console.log('does this get the TICKET', [selectedTicket])
 
-    // const handleStatusChange = (event) => {
-	// 	dispatch(
-    //         toggleStatusAsync({ id: id, status: event.target.value })
-	// 	)
-	// }
+    const handleStatusChange = (event) => {
+		dispatch(
+            toggleStatusAsync({ id: selectedTicket.id, status: event.target.value })
+		)
+	}
 
-    // const handleDeleteClick = () => {
-	// 	dispatch(
-	// 		deleteTicketAsync({ id: id, status: "delete" })
-	// 	)
-	// }
+    const handleDeleteClick = () => {
+		dispatch(
+			deleteTicketAsync({ id: selectedTicket.id, status: "delete" })
+		)
+	}
 
     //     const [value, setValue] = useState('');
     //     const [descriptionValue, setDescriptionValue] = useState('');
     //     const [categoryValue, setCategoryValue] = useState('');
     
-    //     const onSubmit = (event) => {
-    //         event.preventDefault();
-    //         dispatch(
-    //             toggleStatusAsync({
-    //                 title: value,
-    //                 description: descriptionValue,
-    //                 category: categoryValue,
-    //             })
-    //         )
-    //     };
+        // const onSubmit = (event) => {
+        //     event.preventDefault();
+        //     dispatch(
+        //         toggleStatusAsync({
+        //             title: value,
+        //             description: descriptionValue,
+        //             category: categoryValue,
+        //         })
+        //     )
+        // };
 	 
 
     return (
         <ModalBackground>
             <ModalContainer>
+                <div>
+                    <form className='form-inline mt-3 mb-3'>
+                        <CancelButton>
+                            <Button variant="outline-danger text-left" onClick={onHide}>
+                                X
+                            </Button>
+                        </CancelButton>
+                        <label className='sr-only'>Title</label>
+                        <TicketTitle className="border border-1 rounded">{selectedTicket.title}</TicketTitle>
+                        <label className='sr-only'>Description</label>
+                        <TicketDescription className="border border-1 rounded">{selectedTicket.description}</TicketDescription>
+                        <label className='sr-only'>Category</label>
+                        <TicketCategory className="border border-1 rounded">{selectedTicket.category}</TicketCategory> 
+                        <StatusChange>
+                            <select 
+                                className='btn btn-warning'
+                                value={selectedTicket.status}
+                                onChange={handleStatusChange}
+                                >Change Status
+                                <option value="new">New</option>
+                                <option value="wip">WIP</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </StatusChange>
+                        <DeleteButton>
+                            <Button onClick={handleDeleteClick} variant='outline-primary'>Delete</Button>
+                        </DeleteButton>
+                    </form>
+                </div>
+
+
+
                 {/* <div>
                     <form onSubmit={onSubmit} className='form-inline mt-3 mb-3'>
                         <label className='sr-only'>Title</label>

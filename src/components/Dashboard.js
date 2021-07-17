@@ -6,11 +6,13 @@ import TicketList from './TicketList';
 import TotalCompleteTickets from './TotalCompleteTickets';
 import { Button, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
+import Logout from "./auth/Logout";
 
 export const Header = styled.div`
   font-size: 40px;
   font-weight: bold;
   padding-left: 10px;
+  color: #a66e36;
 `;export const ButtonStyle = styled.div`
   margin-left: auto;
 `;
@@ -58,6 +60,7 @@ function Dashboard(props) {
               </Link>
                 {modalOpen && <AddTicket setOpenModal={setModalOpen} />} */}
               <User>{props.user.email}</User>
+              <Logout />
             </div>
 
             <div className='container bg-white p-4 mt-5'>

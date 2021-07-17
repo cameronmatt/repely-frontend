@@ -11,15 +11,15 @@ export const TicketCard = styled.div`
 	padding: 5px;
 `;
 
-const Ticket = (props) => {
+const Ticket = ({id, title, status}) => {
 
-    //const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
-    // const handleStatusChange = (event) => {
-	// 	dispatch(
-    //         toggleStatusAsync({ id: id, status: event.target.value })
-	// 	)
-	// }
+    const handleStatusChange = (event) => {
+		dispatch(
+            toggleStatusAsync({ id: id, status: event.target.value })
+		)
+	}
 
     // const handleDeleteClick = () => {
 	// 	dispatch(
@@ -38,13 +38,22 @@ const Ticket = (props) => {
 		<TicketCard>
 			<Card style={{ width: '18rem' }}>
 				<Card.Body onClick={modalOpen}>
-					<Card.Title>{props.title}</Card.Title>
-					<Card.Text>{props.id}</Card.Text>
+					<Card.Title>{title}</Card.Title>
+					<Card.Text>{id}</Card.Text>
+					<select 
+						className='btn btn-outline-secondary'
+						value={status}
+						onChange={handleStatusChange}
+						>Change Status
+							<option value="new">New</option>
+							<option value="wip">WIP</option>
+							<option value="done">Done</option>
+					</select>
 				</Card.Body>
 			</Card>
 			<Modal show={show} >
 				<Modal.Body>
-					<EditTicket onHide={modalClose} id={props.id}/>
+					<EditTicket onHide={modalClose} id={id}/>
 				</Modal.Body>
 			</Modal>
 		</TicketCard>

@@ -11,12 +11,17 @@ export const ModalBackground = styled.div`
 export const ModalContainer = styled.div`
 
 `;
-export const Col = styled.div`
-	
+export const CancelButton = styled.div`
+	float: right;
+	padding: 10px;
+`;
+export const SubmitButton = styled.div`
+	float: left;
+	padding: 10px;
 `;
 
 const AddTicket = (props) => {
-	const [value, setValue] = useState('');
+	const [titleValue, setTitleValue] = useState('');
 	const [descriptionValue, setDescriptionValue] = useState('');
 	const [categoryValue, setCategoryValue] = useState('');
 
@@ -26,7 +31,7 @@ const AddTicket = (props) => {
 		event.preventDefault();
 		dispatch(
             addTicketAsync({
-                title: value,
+                title: titleValue,
 				description: descriptionValue,
 				category: categoryValue,
             })
@@ -43,8 +48,8 @@ const AddTicket = (props) => {
 							type='text'
 							className='form-control mb-2 mr-sm-2'
 							placeholder='Add Title...'
-							value={value}
-							onChange={(event) => setValue(event.target.value)}
+							value={titleValue}
+							onChange={(event) => setTitleValue(event.target.value)}
 						></input>
 						<label className='sr-only'>Description</label>
 						<input
@@ -65,13 +70,16 @@ const AddTicket = (props) => {
 							<option value="feature-request">Feature Request</option>
 							<option value="bug">Bug</option>
 						</select>
-						
-						<Button type='submit' variant="primary" onClick={props.onHide}>
-							Submit
-						</Button>
-						<Button variant="danger" onClick={props.onHide}>
-							Cancel
-						</Button>
+						<SubmitButton>
+							<Button type='submit' variant="primary" onClick={props.onHide}>
+								Submit
+							</Button>
+						</SubmitButton>
+						<CancelButton>
+							<Button variant="danger" onClick={props.onHide}>
+								Cancel
+							</Button>
+						</CancelButton>
 					</form>
 				</div>
 			</ModalContainer>

@@ -4,6 +4,7 @@ import Home from './components/Home'
 import Dashboard from './components/Dashboard'
 import axios from 'axios';
 import AddTicket from './components/AddTicket';
+import Logout from "./components/auth/Logout";
 
 export default class App extends Component {
 
@@ -67,8 +68,17 @@ export default class App extends Component {
               render={props => (
                 <Home 
                   {...props} 
-                  handleLogout={this.handleLogout}
+                  // handleLogout={this.handleLogout}
                   handleLogin={this.handleLogin}
+                  loggedInStatus={this.state.loggedInStatus} 
+                  />
+              )} />
+            <Route 
+              exact path={"/logout"} 
+              render={props => (
+                <Logout 
+                  {...props} 
+                  handleLogout={this.handleLogout}
                   loggedInStatus={this.state.loggedInStatus} 
                   />
               )} />

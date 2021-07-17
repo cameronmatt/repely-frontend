@@ -90,11 +90,16 @@ const ticketSlice = createSlice({
             state.push(newTicket);
         }, 
         showTicket: (state, action) => {
-            console.log("WHAT IS STATE", state.tickets)
-            // const index = state.find(
+            const copyTickets = state.map(ticket => {
+                console.log("GET Ticket", copyTickets)
+                return ticket
+            })
+            // const = tickets.findIndex(
             //     (ticket) => ticket.id === action.payload.id
             //     );
-            //     console.log("GET Ticket", action.payload)
+            //     console.log("GET Ticket", state[index].id)
+            //     const oneTicket = state[index] === index
+            //     return oneTicket
                 // return state.filter((ticket) => ticket.id === action.payload.id) 
                 // this filtered all results and could be used for search purpose
         },
@@ -103,6 +108,7 @@ const ticketSlice = createSlice({
                 (ticket) => ticket.id === action.payload.id
                 );
                 state[index].status = action.payload.status
+                
         },
         deleteTicket: (state, action) => {
             return state.filter((ticket) => ticket.id !== action.payload.id)
