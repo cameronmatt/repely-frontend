@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Form, Button } from 'react-bootstrap';
 
 export default class Login extends Component {
     constructor(props) {
@@ -43,29 +45,33 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input  
-                        type="email" 
-                        name="email" 
-                        placeholder="Email value"
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                        required
-                    />
-
-                    <input  
-                        type="password" 
-                        name="password" 
-                        placeholder="Password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        required
-                    />
-
-                    <button type="submit">Login</button>
-                </form>
-            </div>
+            <Container>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="form.Email">
+                        <Form.Control  
+                            type="email" 
+                            name="email" 
+                            placeholder="Email address"
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Control 
+                            type="password" 
+                            name="password" 
+                            placeholder="Password"
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Button type="submit">Login</Button>
+                    </Form.Group>
+                </Form>
+            </Container>
         );
     }
 }

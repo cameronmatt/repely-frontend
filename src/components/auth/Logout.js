@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button } from 'react-bootstrap';
 
 export default class Logout extends Component {
 
@@ -23,7 +25,7 @@ export default class Logout extends Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.handleLogoutClick()}>Logout</button>
+                <Button onClick={() => this.handleLogoutClick()}>Logout</Button>
             </div>
         );
     }
