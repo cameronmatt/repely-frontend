@@ -13,7 +13,8 @@ export const Header = styled.div`
   font-weight: bold;
   padding-left: 10px;
   color: #a66e36;
-`;export const ButtonStyle = styled.div`
+`;
+export const ButtonStyle = styled.div`
   margin-left: auto;
 `;
 export const User = styled.div`
