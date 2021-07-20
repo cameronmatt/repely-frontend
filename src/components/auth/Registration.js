@@ -13,7 +13,7 @@ export default class Registration extends Component {
             email: "",
             password: "",
             password_confirmation: "",
-            avatar: "",
+            avatar: {},
             registrationErrors: "reg error",  
         }
 
@@ -22,9 +22,19 @@ export default class Registration extends Component {
     }
 
     handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+    //     this.setState({
+    //         [event.target.name]: event.target.value
+    //   }); console.log("WHAT IS THE AVATAR", this.state)
+    // }
+        if (event.target.name === 'avatar') {
+            this.setState({
+                [event.target.name]: event.target.files[0]
+            })
+        } else {
+            this.setState({
+                [event.target.name]: event.target.value
+            })
+        }  
     }
 
     handleSubmit(event) {
@@ -84,7 +94,7 @@ export default class Registration extends Component {
                             required
                         />
                     </Form.Group>   
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group controlId="formBasicPasswordConfirmation">
                         <Form.Control  
                             type="password" 
                             name="password_confirmation" 
@@ -96,7 +106,14 @@ export default class Registration extends Component {
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.File label="Upload you Avatar"/>
+                        <Form.File
+                            type="file" 
+                            id="avatar"
+                            label="Upload you Avatar"
+                            name="avatar" 
+                            // value={this.state.avatar}
+                            onChange={this.handleChange}
+                        />
                     </Form.Group>
                     <Form.Group>
                         <Button type="submit">Register</Button>

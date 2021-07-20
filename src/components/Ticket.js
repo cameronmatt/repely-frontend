@@ -37,8 +37,8 @@ const Ticket = ({id, title, status}) => {
 	return (
 		<TicketCard>
 			<Card style={{ width: '18rem' }}>
-				<Card.Body onClick={modalOpen}>
-					<Card.Title>{title}</Card.Title>
+				<Card.Body >
+					<Card.Title onClick={modalOpen}>{title}</Card.Title>
 					<Card.Text>{id}</Card.Text>
 					<select 
 						className='btn btn-outline-secondary'

@@ -35,9 +35,18 @@ export const StatusChange = styled.div`
     float: left;
 `;
 
+function useForceUpdate(){
+    const [value, setValue] = useState(0); // integer state
+    return () => setValue(value => value + 1); // update the state to force render
+}
+
 const EditTicket = ({ id, onHide }) => {
 
+    const forceUpdate = useForceUpdate();
+
     const dispatch = useDispatch();
+
+    //Below handles getting a ticket that was clicked
 
     useEffect(() => {
 		dispatch(showTicket({ id: id }))
@@ -46,7 +55,9 @@ const EditTicket = ({ id, onHide }) => {
     const ticketData = useSelector((state) => state.tickets);
     const selectedTicket = ticketData.find((ticket) => ticket.id === id)
 
-    console.log('does this get the TICKET', [selectedTicket])
+    console.log('does this get the TICKET', selectedTicket)
+
+    // Below handles changing the status and deleting the ticket
 
     const handleStatusChange = (event) => {
 		dispatch(
@@ -57,7 +68,7 @@ const EditTicket = ({ id, onHide }) => {
     const handleDeleteClick = () => {
 		dispatch(
 			deleteTicketAsync({ id: selectedTicket.id, status: "delete" })
-		)
+		);
 	}
 
     //     const [value, setValue] = useState('');
@@ -104,7 +115,7 @@ const EditTicket = ({ id, onHide }) => {
                             </select>
                         </StatusChange>
                         <DeleteButton>
-                            <Button onClick={handleDeleteClick} variant='outline-primary'>Delete</Button>
+                            <Button onClick={handleDeleteClick, forceUpdate} variant='outline-primary'>Delete</Button>
                         </DeleteButton>
                     </form>
                 </div>

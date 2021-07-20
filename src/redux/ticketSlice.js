@@ -91,7 +91,7 @@ const ticketSlice = createSlice({
         }, 
         showTicket: (state, action) => {
             const copyTickets = state.map(ticket => {
-                console.log("GET Ticket", copyTickets)
+                //console.log("GET Ticket", copyTickets)
                 return ticket
             })
             // const = tickets.findIndex(
@@ -106,7 +106,7 @@ const ticketSlice = createSlice({
         toggleStatus: (state, action) => {
             const index = state.findIndex(
                 (ticket) => ticket.id === action.payload.id
-                );
+                ); 
                 state[index].status = action.payload.status
                 
         },
@@ -130,10 +130,11 @@ const ticketSlice = createSlice({
             state.push(action.payload.ticket);
         },
         [toggleStatusAsync.fulfilled]: (state, action) => {
+            console.log("status change id", action)
             const index = state.findIndex(
-                (ticket) => ticket.id === action.payload.id
-            );
-            state[index].status = action.payload.status
+                (ticketIndex) => ticketIndex.id === action.meta.arg.id
+            ); 
+            state[index].status = action.meta.arg.status
         },
         [deleteTicketAsync.fulfilled]: (state, action) => {
             return state.filter((ticket) => ticket.id !== action.payload.id)

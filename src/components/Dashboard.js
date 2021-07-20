@@ -33,6 +33,7 @@ function Dashboard(props) {
 
   console.log("login props", props)
 
+
    return (
     <div>
             <div className="navbar navbar-expand-md navbar-dark bg-light">
@@ -61,6 +62,7 @@ function Dashboard(props) {
               </Link>
                 {modalOpen && <AddTicket setOpenModal={setModalOpen} />} */}
               <User>{props.user.email}</User>
+
               <Logout />
             </div>
 
