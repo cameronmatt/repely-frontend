@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard'
 import axios from 'axios';
 import AddTicket from './components/AddTicket';
 import Logout from "./components/auth/Logout";
+import Registration from "./components/auth/Registration";
 
 export default class App extends Component {
 
@@ -13,7 +14,8 @@ export default class App extends Component {
 
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
+      user: {},
+      avatar: null
     }
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -47,15 +49,19 @@ export default class App extends Component {
   handleLogout() {
     this.setState({
       loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
+      user: {},
+      avatar: null
     })
   }
 
   handleLogin(data) {
+    console.log('WHAT IS THIS DATAAAA', data)
     this.setState({
       loggedInStatus: "LOGGED_IN",
-      user: data.user
+      user: data.user,
+      avatar: data.avatar_url
     });
+    
   }
 
   render() {
@@ -71,7 +77,7 @@ export default class App extends Component {
                   // handleLogout={this.handleLogout}
                   handleLogin={this.handleLogin}
                   loggedInStatus={this.state.loggedInStatus} 
-                  />
+                />
               )} />
             <Route 
               exact path={"/logout"} 
@@ -80,7 +86,7 @@ export default class App extends Component {
                   {...props} 
                   handleLogout={this.handleLogout}
                   loggedInStatus={this.state.loggedInStatus} 
-                  />
+                />
               )} />
             <Route 
               exact path={"/dashboard"} 
@@ -89,7 +95,16 @@ export default class App extends Component {
                   {...props} 
                   loggedInStatus={this.state.loggedInStatus}
                   user={this.state.user}
-                  />
+                />
+              )} />
+              <Route 
+              exact path={"/registration"} 
+              render={props => (
+                <Registration 
+                  {...props} 
+                  handleLogin={this.handleLogin}
+                  
+                />
               )} />
             <Route path="/dashboard/new" component={AddTicket}></Route>
           </Switch>
