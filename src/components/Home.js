@@ -51,30 +51,16 @@ export default class Home extends Component {
         isRegOpen: false
     };
 
-    
-
     openLoginModal = () => this.setState({ isLoginOpen: true });
     closeLoginModal = () => this.setState({ isLoginOpen: false });
 
     openRegModal = () => this.setState({ isRegOpen: true });
     closeRegModal = () => this.setState({ isRegOpen: false });
 
-
       handleSuccessfulAuth(data) {
           this.props.handleLogin(data);
           this.props.history.push("/dashboard")
       }
-
-    //   handleLogoutClick() {
-    //       axios
-    //       .delete("http://localhost:3001/logout", { withCredentials: true })
-    //       .then(response => {
-    //           this.props.handleLogout();
-    //       })
-    //       .catch(error => {
-    //           console.log("logout error", error)
-    //       })
-    //   }
 
     render() {
         return (

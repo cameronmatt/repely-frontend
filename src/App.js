@@ -6,8 +6,10 @@ import axios from 'axios';
 import AddTicket from './components/AddTicket';
 import Logout from "./components/auth/Logout";
 import Registration from "./components/auth/Registration";
+import { connect } from 'react-redux';
+import { findUser } from './redux/userSlice';
 
-export default class App extends Component {
+class App extends Component {
 
   constructor() {
     super();
@@ -15,7 +17,6 @@ export default class App extends Component {
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
-      avatar: null
     }
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -49,8 +50,7 @@ export default class App extends Component {
   handleLogout() {
     this.setState({
       loggedInStatus: "NOT_LOGGED_IN",
-      user: {},
-      avatar: null
+      user: {}
     })
   }
 
@@ -58,8 +58,7 @@ export default class App extends Component {
     console.log('WHAT IS THIS DATAAAA', data)
     this.setState({
       loggedInStatus: "LOGGED_IN",
-      user: data.user,
-      avatar: data.avatar_url
+      user: data.user
     });
     
   }
@@ -113,3 +112,13 @@ export default class App extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  user: state.user
+});
+
+const mapDispatchToProps = dispatch => (
+  { findUser: () => dispatch
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

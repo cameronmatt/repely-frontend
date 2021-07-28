@@ -1,5 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { findUser } from '../redux/userSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddTicket from './AddTicket';
 import TicketList from './TicketList';
@@ -26,6 +28,22 @@ export const User = styled.div`
 function Dashboard(props) {
 
   // const [modalOpen, setModalOpen] = useState(false);
+
+      // ////////////////////SEND USER PROPS TO STORE///////////
+
+      // const dispatch = useDispatch();
+
+      // useEffect(() => {
+      //   dispatch(findUser({
+      //         user: props
+      //         // id: props.user.id,
+      //         // email: props.user.email,
+      //         // username: props.user.username,
+      //         // avatar: props.user.avatar
+      //   }))
+      // }, [dispatch])
+    
+      //   ///////////////////////////////////////////////////////
 
   const[show,popup]=useState(false)
   const modalOpen = () => popup(true)

@@ -47,7 +47,7 @@ export default class Login extends Component {
         return (
             <Container>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="form.Email">
+                    <Form.Group controlId="form.Email" className='mb-2 mr-sm-2'>
                         <Form.Control  
                             type="email" 
                             name="email" 
@@ -57,7 +57,7 @@ export default class Login extends Component {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group controlId="formBasicPassword" className='mb-2 mr-sm-2'>
                         <Form.Control 
                             type="password" 
                             name="password" 

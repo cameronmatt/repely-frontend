@@ -5,6 +5,7 @@ import { showTicket } from '../redux/ticketSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
+import Comment from './Comment';
 
 export const ModalBackground = styled.div`
     
@@ -35,14 +36,14 @@ export const StatusChange = styled.div`
     float: left;
 `;
 
-function useForceUpdate(){
-    const [value, setValue] = useState(0); // integer state
-    return () => setValue(value => value + 1); // update the state to force render
-}
+// function useForceUpdate(){
+//     const [value, setValue] = useState(0); // integer state
+//     return () => setValue(value => value + 1); // update the state to force render
+// }
 
 const EditTicket = ({ id, onHide }) => {
 
-    const forceUpdate = useForceUpdate();
+    //const forceUpdate = useForceUpdate(); 
 
     const dispatch = useDispatch();
 
@@ -71,20 +72,20 @@ const EditTicket = ({ id, onHide }) => {
 		);
 	}
 
-    //     const [value, setValue] = useState('');
-    //     const [descriptionValue, setDescriptionValue] = useState('');
-    //     const [categoryValue, setCategoryValue] = useState('');
+        const [value, setValue] = useState('');
+        const [descriptionValue, setDescriptionValue] = useState('');
+        const [categoryValue, setCategoryValue] = useState('');
     
-        // const onSubmit = (event) => {
-        //     event.preventDefault();
-        //     dispatch(
-        //         toggleStatusAsync({
-        //             title: value,
-        //             description: descriptionValue,
-        //             category: categoryValue,
-        //         })
-        //     )
-        // };
+        const onSubmit = (event) => {
+            event.preventDefault();
+            dispatch(
+                toggleStatusAsync({
+                    title: value,
+                    description: descriptionValue,
+                    category: categoryValue,
+                })
+            )
+        };
 	 
 
     return (
@@ -115,12 +116,19 @@ const EditTicket = ({ id, onHide }) => {
                             </select>
                         </StatusChange>
                         <DeleteButton>
-                            <Button onClick={handleDeleteClick, forceUpdate} variant='outline-primary'>Delete</Button>
+                            <Button 
+                                onClick={() => { if (window.confirm(
+                                    'This action is a hard delete. Please confirm you wish to permanently delete this item?'
+                                    )) handleDeleteClick() } } 
+                                variant='outline-primary'>
+                                Delete
+                            </Button>
                         </DeleteButton>
                     </form>
                 </div>
-
-
+                <div>
+                    <Comment id={selectedTicket.id}/>
+                </div>
 
                 {/* <div>
                     <form onSubmit={onSubmit} className='form-inline mt-3 mb-3'>

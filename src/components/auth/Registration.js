@@ -10,11 +10,11 @@ export default class Registration extends Component {
         super(props);
 
         this.state = {
-            username: "",
             email: "",
             password: "",
             password_confirmation: "",
-            avatar: {},
+            username: "",
+            avatar: "",
             registrationErrors: "reg error",  
         }
 
@@ -23,28 +23,19 @@ export default class Registration extends Component {
     }
 
     handleChange(event) {
-    //     this.setState({
-    //         [event.target.name]: event.target.value
-    //   }); console.log("WHAT IS THE AVATAR", this.state)
-    // }
-        if (event.target.name === 'avatar') {
-            this.setState({
-                [event.target.name]: event.target.files[0]
-            })
-        } else {
-            this.setState({
-                [event.target.name]: event.target.value
-            })
-        }  
+        this.setState({
+            [event.target.name]: event.target.value
+      });
     }
 
     handleSubmit(event) {
         axios.post("http://localhost:3001/registrations", {
             user:{ 
-            username: this.state.username,
             email: this.state.email, 
             password: this.state.password, 
             password_confirmation: this.state.password_confirmation,
+            username: this.state.username,
+            avatar: this.state.avatar
             } 
         },
         { withCredentials: true}
@@ -53,40 +44,40 @@ export default class Registration extends Component {
             if (response.data.status === 'created') {
                 this.props.handleSuccessfulAuth(response.data);
             } 
-            this.uploadFile(this.state.avatar, response.data.user)
+            // this.uploadFile(this.state.avatar, response.data.user)
         })
         .catch(error => {
         });
         event.preventDefault();
     }
 
-    uploadFile = (file, user) => {
-        const upload = new DirectUpload(file, 'http://localhost:3001/rails/active_storage/direct_uploads')
-        upload.create((error, blob) => {
-            if (error) {
-                console.log(error)
-            } else {
-                fetch(`http://localhost:3001/users/${user.id}`, {
-                    method: 'PUT', 
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({avatar: blob.signed_id})
-                })
-                .then(response => response.json())
-                .then(data => this.props.handleLogin(data))
-            }
-        })
-    }
+    // uploadFile = (file, user) => {
+    //     const upload = new DirectUpload(file, 'http://localhost:3001/rails/active_storage/direct_uploads')
+    //     upload.create((error, blob) => {
+    //         if (error) {
+    //             console.log(error)
+    //         } else {
+    //             fetch(`http://localhost:3001/users/${user.id}`, {
+    //                 method: 'PUT', 
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Accept': 'application/json'
+    //                 },
+    //                 body: JSON.stringify({avatar: blob.signed_id})
+    //             })
+    //             .then(response => response.json())
+    //             .then(data => this.props.handleLogin(data))
+    //         }
+    //     })
+    // }
 
     render() {
         return (
             <Container>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Group controlId="form.Name">
+                    <Form.Group controlId="form.Name" className='mb-2 mr-sm-2'>
                         <Form.Control  
-                            type="username" 
+                            type="text" 
                             name="username" 
                             placeholder="Username"
                             value={this.state.username}
@@ -94,7 +85,7 @@ export default class Registration extends Component {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="form.Email">
+                    <Form.Group controlId="form.Email" className='mb-2 mr-sm-2'>
                         <Form.Control  
                             type="email" 
                             name="email" 
@@ -104,7 +95,7 @@ export default class Registration extends Component {
                             required
                         />
                     </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group controlId="formBasicPassword" className='mb-2 mr-sm-2'>
                         <Form.Control  
                             type="password" 
                             name="password" 
@@ -114,7 +105,7 @@ export default class Registration extends Component {
                             required
                         />
                     </Form.Group>   
-                    <Form.Group controlId="formBasicPasswordConfirmation">
+                    <Form.Group controlId="formBasicPasswordConfirmation" className='mb-2 mr-sm-2'>
                         <Form.Control  
                             type="password" 
                             name="password_confirmation" 
@@ -125,12 +116,14 @@ export default class Registration extends Component {
                         />
                     </Form.Group>
 
-                    <Form.Group>
-                        <Form.File
-                            type="file" 
+                    <Form.Group className='mb-2 mr-sm-2'>
+                        <Form.Control
+                            type="text" 
                             label="Upload you Avatar"
                             name="avatar" 
+                            placeholder="Enter URL of your avatar"
                             onChange={this.handleChange}
+                            value={this.state.avatar}
                         />
                     </Form.Group>
                     <Form.Group>
