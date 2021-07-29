@@ -41,13 +41,16 @@ export default class Home extends Component {
 
     constructor(props) {
         super(props);
-        console.log("login props", this.props)
+        console.log("WHAT IS THIS USER", this.state.currentUser)
         this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
         //this.handleLogoutClick = this.handleLogoutClick.bind(this);
+        this.state = {
+            currentUser: this.props.current_user
+          }
       }
 
     state = {
-        isLoginOpen: false,
+        isLoginOpen: false, 
         isRegOpen: false
     };
 

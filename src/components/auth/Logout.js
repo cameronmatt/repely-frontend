@@ -13,7 +13,7 @@ export default class Logout extends Component {
 
       handleLogoutClick() {
           axios
-          .delete("http://localhost:3001/logout", { withCredentials: true })
+          .delete("http://localhost:3001/logout")
           .then(response => {
               this.props.handleLogout();
           })

@@ -17,15 +17,17 @@ export const Header = styled.div`
   color: #a66e36;
 `;
 export const ButtonStyle = styled.div`
-  margin-left: auto;
+  margin: auto;
 `;
-export const User = styled.div`
-  margin-left: auto;
-  font-size: 20px;
-	font-weight: bold;
-`;
+// export const User = styled.div`
+//   margin-left: auto;
+//   font-size: 20px;
+// 	font-weight: bold;
+// `;
 
 function Dashboard(props) {
+
+  
 
   // const [modalOpen, setModalOpen] = useState(false);
 
@@ -48,9 +50,6 @@ function Dashboard(props) {
   const[show,popup]=useState(false)
   const modalOpen = () => popup(true)
   const modalClose = () => popup(false)
-
-  console.log("login props", props)
-
 
    return (
     <div>
@@ -78,8 +77,8 @@ function Dashboard(props) {
               > 
               Create New Ticket
               </Link>
-                {modalOpen && <AddTicket setOpenModal={setModalOpen} />} */}
-              <User>{props.user.email}</User>
+                {modalOpen && <AddTicket setOpenModal={setModalOpen} />} 
+              <User>{props.user.email}</User> */}
 
               <Logout />
             </div>

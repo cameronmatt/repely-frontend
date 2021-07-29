@@ -11,41 +11,40 @@ import { findUser } from './redux/userSlice';
 
 class App extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {},
+      //loggedInStatus: "NOT_LOGGED_IN",
     }
 
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  checkLoginStatus() {
-    axios.get("http://localhost:3001/logged_in", { withCredentials: true })
-    .then(response => {
-      if (response.data.logged_in && this.state.loggedInStatus === "NOT_LOGGED_IN") {
-        this.setState({
-          loggedInStatus: "LOGGED_IN",
-          user: response.data.user
-        })
-      } else if(!response.data.logged_in & this.state.loggedInStatus === "LOGGED_IN") {
-        this.setState({
-          loggedInStatus: "NOT_LOGGED_IN",
-          user: {}
-        })
-      }
-    })
-    .catch(error => {
-      console.log("catch login error", error);
-    });
-  }
+  // checkLoginStatus() {
+  //   axios.get("http://localhost:3001/logged_in", { withCredentials: true })
+  //   .then(response => {
+  //     if (response.data.logged_in && this.state.loggedInStatus === "NOT_LOGGED_IN") {
+  //       this.setState({
+  //         loggedInStatus: "LOGGED_IN",
+  //         user: response.data.user
+  //       })
+  //     } else if(!response.data.logged_in & this.state.loggedInStatus === "LOGGED_IN") {
+  //       this.setState({
+  //         loggedInStatus: "NOT_LOGGED_IN",
+  //         user: {}
+  //       })
+  //     }
+  //   })
+  //   .catch(error => {
+  //     console.log("catch login error", error);
+  //   });
+  // }
 
-  componentDidMount() {
-    this.checkLoginStatus();
-  }
+  // componentDidMount() {
+  //   this.checkLoginStatus();
+  // }
 
   handleLogout() {
     this.setState({
@@ -113,12 +112,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user
-});
-
-const mapDispatchToProps = dispatch => (
-  { findUser: () => dispatch
-  });
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App

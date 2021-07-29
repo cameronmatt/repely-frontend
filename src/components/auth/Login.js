@@ -24,16 +24,15 @@ export default class Login extends Component {
     }
 
     handleSubmit(event) {
-        axios.post("http://localhost:3001/sessions", {
+        axios.post("http://localhost:3001/login", {
             user:{ 
             email: this.state.email, 
             password: this.state.password, 
             }
-        },
-        { withCredentials: true}
-        )
-        .then(response => {
-            if (response.data.logged_in === true) {
+        })
+        .then(response => { 
+            if (response.status === 200) {
+
                 this.props.handleSuccessfulAuth(response.data);
             }
         })

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button } from 'react-bootstrap';
-import { DirectUpload } from 'activestorage';
-
 
 export default class Registration extends Component {
     constructor(props) {
@@ -29,7 +27,7 @@ export default class Registration extends Component {
     }
 
     handleSubmit(event) {
-        axios.post("http://localhost:3001/registrations", {
+        axios.post("http://localhost:3001/", {
             user:{ 
             email: this.state.email, 
             password: this.state.password, 
@@ -37,39 +35,17 @@ export default class Registration extends Component {
             username: this.state.username,
             avatar: this.state.avatar
             } 
-        },
-        { withCredentials: true}
-        )
+        })
         .then(response => {
-            if (response.data.status === 'created') {
+            console.log("WHAT IS THE RESPONSE", response)
+            if (response.status === 200) {
                 this.props.handleSuccessfulAuth(response.data);
             } 
-            // this.uploadFile(this.state.avatar, response.data.user)
         })
         .catch(error => {
         });
         event.preventDefault();
     }
-
-    // uploadFile = (file, user) => {
-    //     const upload = new DirectUpload(file, 'http://localhost:3001/rails/active_storage/direct_uploads')
-    //     upload.create((error, blob) => {
-    //         if (error) {
-    //             console.log(error)
-    //         } else {
-    //             fetch(`http://localhost:3001/users/${user.id}`, {
-    //                 method: 'PUT', 
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Accept': 'application/json'
-    //                 },
-    //                 body: JSON.stringify({avatar: blob.signed_id})
-    //             })
-    //             .then(response => response.json())
-    //             .then(data => this.props.handleLogin(data))
-    //         }
-    //     })
-    // }
 
     render() {
         return (

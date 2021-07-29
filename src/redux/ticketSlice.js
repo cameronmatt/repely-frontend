@@ -155,7 +155,7 @@ const ticketSlice = createSlice({
             console.log('fetching data...') //Could be used for loading
         },
         [getTicketsAsync.fulfilled]: (state, action) => {
-            console.log('fetched data successfully!', action.payload.tickets)
+            console.log('fetched data successfully!', action.payload)
             return action.payload.tickets
         },
         [getTicketAsync.fulfilled]: (state, action) => {
