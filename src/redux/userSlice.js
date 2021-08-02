@@ -1,5 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { User } from '../components/Dashboard';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+
+export const getCurrentUserAsync = createAsyncThunk(
+    'users/getCurrentUserAsync', 
+    async () => {
+        const response = await fetch('http://localhost:3001/userauth', {
+          method: 'GET',
+          headers:{
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+          }
+        }
+        );
+        if(response.ok) {
+            const currentUser = await response.json();
+            console.log("THIS IS THE CURRENT USER", currentUser)
+            return currentUser
+            
+        }
+    }
+);
 
 const userSlice = createSlice({
     name: 'user',
@@ -12,6 +31,11 @@ const userSlice = createSlice({
             // })
         }
     },
+    extraReducers: {
+      [getCurrentUserAsync.fulfilled]: (state, action) => {
+          console.log('fetching user...', action)
+      },
+    }
 })
 
 export const {findUser} = userSlice.actions;

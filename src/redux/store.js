@@ -5,6 +5,6 @@ import userReducer from './userSlice';
 export default configureStore({
     reducer: {
         tickets: ticketReducer,
-        user: userReducer
+        currentUser: userReducer
     }
 })

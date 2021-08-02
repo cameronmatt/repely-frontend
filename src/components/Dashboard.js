@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { findUser } from '../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCurrentUserAsync } from '../redux/userSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddTicket from './AddTicket';
 import TicketList from './TicketList';
@@ -27,23 +27,18 @@ export const ButtonStyle = styled.div`
 
 function Dashboard(props) {
 
-  
-
+console.log("HAVE WE FOUND THE USER", currentUser)
   // const [modalOpen, setModalOpen] = useState(false);
 
       // ////////////////////SEND USER PROPS TO STORE///////////
 
-      // const dispatch = useDispatch();
+      const dispatch = useDispatch();
 
-      // useEffect(() => {
-      //   dispatch(findUser({
-      //         user: props
-      //         // id: props.user.id,
-      //         // email: props.user.email,
-      //         // username: props.user.username,
-      //         // avatar: props.user.avatar
-      //   }))
-      // }, [dispatch])
+      useEffect(() => {
+          dispatch(getCurrentUserAsync())
+      }, [dispatch])
+      
+      const currentUser = useSelector((state) => state.currentUser);
     
       //   ///////////////////////////////////////////////////////
 

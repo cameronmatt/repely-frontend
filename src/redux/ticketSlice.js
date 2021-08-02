@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 
 export const getTicketsAsync = createAsyncThunk(
-    'todos/getTicketsAsync', 
+    'tickets/getTicketsAsync', 
     async () => {
         const response = await fetch('http://localhost:3001/tickets');
         if(response.ok) {
@@ -13,7 +13,7 @@ export const getTicketsAsync = createAsyncThunk(
 );
 
 export const getTicketAsync = createAsyncThunk(
-    'todos/getTicketAsync', 
+    'tickets/getTicketAsync', 
     async (payload) => {
         const response = await fetch(`http://localhost:3001/tickets/${payload.id}`);
         if(response.ok) {
@@ -24,7 +24,7 @@ export const getTicketAsync = createAsyncThunk(
 );
 
 export const addTicketAsync = createAsyncThunk(
-    'todos/addTicketAsync', 
+    'tickets/addTicketAsync', 
     async (payload) => {
         console.log("WHAT IS THIS NEW TICKET", payload)
         const response = await fetch('http://localhost:3001/tickets', {
@@ -36,6 +36,7 @@ export const addTicketAsync = createAsyncThunk(
                 title: payload.title,
                 description: payload.description,
                 category: payload.category,
+                status: 'new'
             }) 
         });
         console.log('WHAT IS REPONSE BODY', response)
@@ -50,7 +51,7 @@ export const addTicketAsync = createAsyncThunk(
 );
 
 // export const addCommentAsync = createAsyncThunk(
-//     'todos/addCommentAsync', 
+//     'tickets/addCommentAsync', 
 //     async (payload) => {
 //         //console.log("WHAT IS PROPS ON COMMENTS", payload.ticket.id)
 //         const response = await fetch(`http://localhost:3001/tickets/${payload.ticket.id}/comments/`, {
@@ -70,7 +71,7 @@ export const addTicketAsync = createAsyncThunk(
 // );
 
 export const toggleStatusAsync = createAsyncThunk(
-    'todos/toggleStatusAsync', 
+    'tickets/toggleStatusAsync', 
     async (payload) => {
         //console.log("WHAT IS THIS NEW TICKET", payload)
         const response = await fetch(`http://localhost:3001/tickets/${payload.id}`, {
@@ -91,7 +92,7 @@ export const toggleStatusAsync = createAsyncThunk(
 );
 
 export const deleteTicketAsync = createAsyncThunk(
-    'todos/deleteTicketAsync', 
+    'tickets/deleteTicketAsync', 
     async (payload) => {
         const response = await fetch(`http://localhost:3001/tickets/${payload.id}`, {
             method: 'DELETE', 
@@ -155,7 +156,7 @@ const ticketSlice = createSlice({
             console.log('fetching data...') //Could be used for loading
         },
         [getTicketsAsync.fulfilled]: (state, action) => {
-            console.log('fetched data successfully!', action.payload)
+            console.log('fetched data successfully!', action)
             return action.payload.tickets
         },
         [getTicketAsync.fulfilled]: (state, action) => {

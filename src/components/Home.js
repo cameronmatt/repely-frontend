@@ -61,7 +61,7 @@ export default class Home extends Component {
     closeRegModal = () => this.setState({ isRegOpen: false });
 
       handleSuccessfulAuth(data) {
-          this.props.handleLogin(data);
+        //   this.props.handleLogin(data);
           this.props.history.push("/dashboard")
       }
 

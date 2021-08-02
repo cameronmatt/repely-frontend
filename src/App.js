@@ -18,8 +18,8 @@ class App extends Component {
       //loggedInStatus: "NOT_LOGGED_IN",
     }
 
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
+    // this.handleLogin = this.handleLogin.bind(this);
+    // this.handleLogout = this.handleLogout.bind(this);
   }
 
   // checkLoginStatus() {
@@ -46,21 +46,21 @@ class App extends Component {
   //   this.checkLoginStatus();
   // }
 
-  handleLogout() {
-    this.setState({
-      loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
-    })
-  }
+  // handleLogout() {
+  //   this.setState({
+  //     loggedInStatus: "NOT_LOGGED_IN",
+  //     user: {}
+  //   })
+  // }
 
-  handleLogin(data) {
-    console.log('WHAT IS THIS DATAAAA', data)
-    this.setState({
-      loggedInStatus: "LOGGED_IN",
-      user: data.user
-    });
+  // handleLogin(data) {
+  //   console.log('WHAT IS THIS DATAAAA', data)
+  //   this.setState({
+  //     loggedInStatus: "LOGGED_IN",
+  //     user: data.user
+  //   });
     
-  }
+  // }
 
   render() {
     return (

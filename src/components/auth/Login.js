@@ -10,7 +10,8 @@ export default class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            loginErrors: "reg error"
+            loginErrors: "reg error",
+            isLoggedIn: !!localStorage.jwt
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,16 +25,17 @@ export default class Login extends Component {
     }
 
     handleSubmit(event) {
-        axios.post("http://localhost:3001/login", {
-            user:{ 
+        axios.post("http://localhost:3001/auth/signin", {
+            auth:{ 
             email: this.state.email, 
             password: this.state.password, 
             }
         })
         .then(response => { 
-            if (response.status === 200) {
-
+            if (response.status === 201) {
+                console.log("WHAT IS IN RESPONSE", response)
                 this.props.handleSuccessfulAuth(response.data);
+                localStorage.setItem("jwt", response.data.jwt)
             }
         })
         .catch(error => {
