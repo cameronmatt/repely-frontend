@@ -33,8 +33,8 @@ const Dashboard = () => {
           dispatch(getCurrentUserAsync())
       }, [dispatch])
       
-      const currentUser = useSelector((state) => console.log("THIS USER", state));
-      console.log("HAVE WE FOUND THE USER", currentUser)
+      const user = useSelector((state) => state);
+      console.log("CURRENT USER", user)
 
   const[show,popup]=useState(false)
   const modalOpen = () => popup(true)

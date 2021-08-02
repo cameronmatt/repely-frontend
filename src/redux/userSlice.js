@@ -13,7 +13,8 @@ export const getCurrentUserAsync = createAsyncThunk(
         );
         if(response.ok) {
             const user = await response.json();
-            return user
+            //console.log('USER RESPONSE', [{ user }])
+            return [{ user }]
             
         }
     }
@@ -29,7 +30,7 @@ const userSlice = createSlice({
     },
     extraReducers: {
       [getCurrentUserAsync.fulfilled]: (state, action) => {
-          console.log('USER IN STORE via EXTRA REDUCER', action.payload)
+          //console.log("USER IN REDUCER", action.payload)
           return action.payload
       },
     }

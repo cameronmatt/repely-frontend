@@ -7,6 +7,7 @@ export const getTicketsAsync = createAsyncThunk(
         const response = await fetch('http://localhost:3001/tickets');
         if(response.ok) {
             const tickets = await response.json();
+            //console.log('TICKETS RESPONSE', tickets)
             return { tickets }
         }
     }
@@ -31,6 +32,7 @@ export const addTicketAsync = createAsyncThunk(
             method: 'POST', 
             headers: {
                 'Content-Type': 'Application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
             },
             body: JSON.stringify({ 
                 title: payload.title,
@@ -156,7 +158,7 @@ const ticketSlice = createSlice({
             console.log('fetching data...') //Could be used for loading
         },
         [getTicketsAsync.fulfilled]: (state, action) => {
-            console.log('fetched data successfully!', action)
+            //console.log("TICKETS IN REDUCER", action.payload.tickets)
             return action.payload.tickets
         },
         [getTicketAsync.fulfilled]: (state, action) => {

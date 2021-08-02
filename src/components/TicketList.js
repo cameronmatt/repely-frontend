@@ -36,7 +36,7 @@ const TicketList = () => {
 	}, [dispatch])
 
 	const tickets = useSelector((state) => state.tickets);
-	console.log("THIS IS WHAT TICKETS LOOKS LIKE", tickets)
+	console.log("CURRENT TICKETS", tickets)
 
 	const newTickets = tickets.filter((ticket) => ticket.status === 'new')
 	const wipTickets = tickets.filter((ticket) => ticket.status === 'wip')
