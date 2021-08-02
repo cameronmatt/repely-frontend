@@ -12,9 +12,8 @@ export const getCurrentUserAsync = createAsyncThunk(
         }
         );
         if(response.ok) {
-            const currentUser = await response.json();
-            console.log("THIS IS THE CURRENT USER", currentUser)
-            return currentUser
+            const user = await response.json();
+            return user
             
         }
     }
@@ -26,14 +25,12 @@ const userSlice = createSlice({
     reducers: {
         findUser: (state, action) => {
             console.log('USER IN STORE', action)
-            // const currentUser = action.payload.map(user => {
-            //     return user
-            // })
         }
     },
     extraReducers: {
       [getCurrentUserAsync.fulfilled]: (state, action) => {
-          console.log('fetching user...', action)
+          console.log('USER IN STORE via EXTRA REDUCER', action.payload)
+          return action.payload
       },
     }
 })

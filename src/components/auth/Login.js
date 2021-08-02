@@ -33,7 +33,6 @@ export default class Login extends Component {
         })
         .then(response => { 
             if (response.status === 201) {
-                console.log("WHAT IS IN RESPONSE", response)
                 this.props.handleSuccessfulAuth(response.data);
                 localStorage.setItem("jwt", response.data.jwt)
             }

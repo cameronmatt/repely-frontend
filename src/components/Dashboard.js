@@ -25,12 +25,7 @@ export const ButtonStyle = styled.div`
 // 	font-weight: bold;
 // `;
 
-function Dashboard(props) {
-
-console.log("HAVE WE FOUND THE USER", currentUser)
-  // const [modalOpen, setModalOpen] = useState(false);
-
-      // ////////////////////SEND USER PROPS TO STORE///////////
+const Dashboard = () => {
 
       const dispatch = useDispatch();
 
@@ -38,9 +33,8 @@ console.log("HAVE WE FOUND THE USER", currentUser)
           dispatch(getCurrentUserAsync())
       }, [dispatch])
       
-      const currentUser = useSelector((state) => state.currentUser);
-    
-      //   ///////////////////////////////////////////////////////
+      const currentUser = useSelector((state) => console.log("THIS USER", state));
+      console.log("HAVE WE FOUND THE USER", currentUser)
 
   const[show,popup]=useState(false)
   const modalOpen = () => popup(true)
