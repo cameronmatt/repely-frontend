@@ -5,7 +5,8 @@ import { showTicket } from '../redux/ticketSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
-import Comment from './Comment';
+import AddComment from './AddComment';
+import Comments from './Comments';
 
 export const ModalBackground = styled.div`
     
@@ -56,7 +57,7 @@ const EditTicket = ({ id, onHide }) => {
     const ticketData = useSelector((state) => state.tickets);
     const selectedTicket = ticketData.find((ticket) => ticket.id === id)
 
-    console.log('does this get the TICKET', selectedTicket)
+    //console.log('does this get the TICKET', selectedTicket)
 
     // Below handles changing the status and deleting the ticket
 
@@ -127,7 +128,10 @@ const EditTicket = ({ id, onHide }) => {
                     </form>
                 </div>
                 <div>
-                    <Comment id={selectedTicket.id}/>
+                    <Comments />
+                </div>
+                <div>
+                    <AddComment id={selectedTicket.id}/>
                 </div>
 
                 {/* <div>

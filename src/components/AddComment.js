@@ -4,7 +4,7 @@ import { addCommentAsync } from '../redux/ticketSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button } from 'react-bootstrap';
 
-const Comment = (props) => {
+const AddComment = (props) => {
     const [commentValue, setCommentValue] = useState('');
 
     const dispatch = useDispatch();
@@ -12,12 +12,12 @@ const Comment = (props) => {
     const handleSubmit = (event) => {
 		event.preventDefault();
 		dispatch(
-            // addCommentAsync({
-            //     comment: commentValue,
-            //     ticket: props
-            // })
+            addCommentAsync({
+                comment: commentValue,
+                ticket: props
+            })
         )
-        //console.log("WHAT IS PROPS ON COMMENTS", commentValue)
+        //console.log("WHAT IS PROPS ON COMMENTS", props)
 	};
 
 
@@ -44,4 +44,4 @@ const Comment = (props) => {
 
 }
 
-export default Comment
+export default AddComment

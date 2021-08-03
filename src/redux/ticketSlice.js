@@ -27,7 +27,7 @@ export const getTicketAsync = createAsyncThunk(
 export const addTicketAsync = createAsyncThunk(
     'tickets/addTicketAsync', 
     async (payload) => {
-        console.log("WHAT IS THIS NEW TICKET", payload)
+        //console.log("WHAT IS THIS NEW TICKET", payload)
         const response = await fetch('http://localhost:3001/tickets', {
             method: 'POST', 
             headers: {
@@ -41,36 +41,36 @@ export const addTicketAsync = createAsyncThunk(
                 status: 'new'
             }) 
         });
-        console.log('WHAT IS REPONSE BODY', response)
-        
         if(response.ok) {
             const ticket = await response.json();
-            
             return ticket
-            
         }
     }
 );
 
-// export const addCommentAsync = createAsyncThunk(
-//     'tickets/addCommentAsync', 
-//     async (payload) => {
-//         //console.log("WHAT IS PROPS ON COMMENTS", payload.ticket.id)
-//         const response = await fetch(`http://localhost:3001/tickets/${payload.ticket.id}/comments/`, {
-//             method: 'POST', 
-//             headers: {
-//                 'Content-Type': 'Application/json',
-//             },
-//             body: JSON.stringify({ 
-//                 title: payload.comment,
-//             })
-//         });
-//         if(response.ok) {
-//             const comment = await response.json();
-//             return { comment }
-//         }
-//     }
-// );
+export const addCommentAsync = createAsyncThunk(
+    'tickets/addCommentAsync', 
+    async (payload) => {
+        //console.log("WHAT IS PROPS ON COMMENTS", payload.ticket.id)
+        const response = await fetch(`http://localhost:3001/tickets/${payload.ticket.id}/comments`, {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'Application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            },
+            body: JSON.stringify({
+                //comments: { 
+                comment: payload.comment,
+                //ticket_id: payload.ticket.id
+            })
+        });
+        if(response.ok) {
+            const comment = await response.json();
+            console.log("WHAT IS COMMENTS ASYNC RESPONSE", comment)
+            return comment 
+        }
+    }
+);
 
 export const toggleStatusAsync = createAsyncThunk(
     'tickets/toggleStatusAsync', 
@@ -124,7 +124,6 @@ const ticketSlice = createSlice({
         }, 
         addComment: (state, action) => {
             const newComment = {
-                id: Date.now(), 
                 comment: action.payload.comment, 
             };
             state.push(newComment);
@@ -155,7 +154,7 @@ const ticketSlice = createSlice({
     },
     extraReducers: {
         [getTicketsAsync.pending]: (state, action) => {
-            console.log('fetching data...') //Could be used for loading
+            //console.log('fetching data...') //Could be used for loading
         },
         [getTicketsAsync.fulfilled]: (state, action) => {
             //console.log("TICKETS IN REDUCER", action.payload.tickets)
@@ -170,10 +169,10 @@ const ticketSlice = createSlice({
             console.log("WHAT IS THIS ARRAY", [...state ,action.payload])
             return [...state ,action.payload];
         },
-        // [addCommentAsync.fulfilled]: (state, action) => {
-        //     //console.log("WHAT IS PROPS ON COMMENTS", action.meta.arg.comment)
-        //     state.push(action.meta.arg.comment);
-        // },
+        [addCommentAsync.fulfilled]: (state, action) => {
+            console.log("COMMENTS IN REDUCER", action)
+            return [...state ,action.payload];
+        },
         [toggleStatusAsync.fulfilled]: (state, action) => {
             //console.log("status change id", action)
             const index = state.findIndex(
