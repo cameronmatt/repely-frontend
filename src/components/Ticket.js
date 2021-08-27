@@ -9,15 +9,15 @@ import styled from 'styled-components';
 export const TicketCard = styled.div`
 	cursor: pointer;
 	padding: 5px;
-`;
+`; 
 
-const Ticket = ({id, title, status}) => {
+const Ticket = (props) => {
 
     const dispatch = useDispatch()
 
     const handleStatusChange = (event) => {
 		dispatch(
-            toggleStatusAsync({ id: id, status: event.target.value })
+            toggleStatusAsync({ id: props.id, status: event.target.value })
 		)
 	}
 
@@ -32,17 +32,17 @@ const Ticket = ({id, title, status}) => {
   	const modalClose = () => popup(false)
 
 
-	  //console.log('what is props', props)
+	  // console.log('what is propssssss', props)
 
 	return (
 		<TicketCard>
 			<Card style={{ width: '18rem' }}>
 				<Card.Body >
-					<Card.Title onClick={modalOpen}>{title}</Card.Title>
-					<Card.Text>{id}</Card.Text>
+					<Card.Title onClick={modalOpen}>{props.title}</Card.Title>
+					<Card.Text>{props.description}</Card.Text>
 					<select 
 						className='btn btn-outline-secondary'
-						value={status}
+						value={props.status}
 						onChange={handleStatusChange}
 						>Change Status
 							<option value="new">New</option>
@@ -53,7 +53,7 @@ const Ticket = ({id, title, status}) => {
 			</Card>
 			<Modal show={show} >
 				<Modal.Body>
-					<EditTicket onHide={modalClose} id={id}/>
+					<EditTicket onHide={modalClose} id={props.id}/>
 				</Modal.Body>
 			</Modal>
 		</TicketCard>

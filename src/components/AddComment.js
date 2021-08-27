@@ -1,6 +1,6 @@
-import React, { useState }  from 'react';
+import React, { useState, useRef }  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCommentAsync } from '../redux/ticketSlice';
+import { addCommentAsync } from '../redux/commentSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Form, Button } from 'react-bootstrap';
 
@@ -9,17 +9,22 @@ const AddComment = (props) => {
 
     const dispatch = useDispatch();
 
+    const formRef = useRef(null)
+
     const handleSubmit = (event) => {
 		event.preventDefault();
+        
 		dispatch(
             addCommentAsync({
-                comment: commentValue,
+                comment: formRef.current.value,
                 ticket: props
             })
-        )
+        );
+        formRef.current.value = ""
+        console.log('FORM REF', formRef.current.value)
+
         //console.log("WHAT IS PROPS ON COMMENTS", props)
 	};
-
 
     return(
         <Container>
@@ -28,8 +33,9 @@ const AddComment = (props) => {
                     <Form.Control  
                         type="text-area" 
                         placeholder="Add your comment"
-                        value={commentValue}
+                        //value={commentValue}
                         onChange={(event) => setCommentValue(event.target.value)}
+                        ref={formRef}
                         required
                     />
                 </Form.Group>
@@ -38,10 +44,7 @@ const AddComment = (props) => {
                 </Form.Group>
             </Form>
         </Container>
-
     )
-
-
 }
 
 export default AddComment

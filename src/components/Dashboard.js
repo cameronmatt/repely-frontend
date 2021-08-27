@@ -1,11 +1,9 @@
 import React, { Component, useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentUserAsync } from '../redux/userSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddTicket from './AddTicket';
 import TicketList from './TicketList';
-import TotalCompleteTickets from './TotalCompleteTickets';
 import { Button, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import Logout from "./auth/Logout";
@@ -19,11 +17,6 @@ export const Header = styled.div`
 export const ButtonStyle = styled.div`
   margin: auto;
 `;
-// export const User = styled.div`
-//   margin-left: auto;
-//   font-size: 20px;
-// 	font-weight: bold;
-// `;
 
 const Dashboard = () => {
 
@@ -33,8 +26,8 @@ const Dashboard = () => {
           dispatch(getCurrentUserAsync())
       }, [dispatch])
       
-      const user = useSelector((state) => state);
-      console.log("CURRENT USER", user)
+      const user = useSelector((state) => state.user);
+      //console.log("CURRENT USER", user)
 
   const[show,popup]=useState(false)
   const modalOpen = () => popup(true)
@@ -57,24 +50,11 @@ const Dashboard = () => {
                   <AddTicket onHide={modalClose}/>
                 </Modal.Body>
               </Modal>
-              {/* <Link 
-                //to="dashboard/new" 
-                className='btn btn-success float-right'
-                onClick={() => {
-                  setModalOpen(true);
-                }}
-              > 
-              Create New Ticket
-              </Link>
-                {modalOpen && <AddTicket setOpenModal={setModalOpen} />} 
-              <User>{props.user.email}</User> */}
-
-              <Logout />
+              <Logout currentUser={user}/>
             </div>
 
             <div className='container bg-white p-4 mt-5'>
               <TicketList />
-              <TotalCompleteTickets />
             </div>
         
     </div>

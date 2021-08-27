@@ -1,20 +1,30 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect }  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCommentAsync } from '../redux/ticketSlice';
+import { getCommentsAsync } from '../redux/commentSlice';
+import Comment from './Comment';
 
-const AddComment = () => {
+const AddComment = ({id}) => {
     
-    const comments = useSelector((state) => console.log("WHAT IS COMMENTS STORE", state));
-    //console.log("WHAT IS COMMENTS", comments)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+		dispatch(getCommentsAsync({
+            ticket: id
+            })
+        )
+	}, [dispatch])
+
+    const ticketComments = useSelector((state) => state.comments);
+    //console.log("WHAT IS COMMENTS", ticketComments)
 
     return(
         <div>
-            
+            <p>Comments</p>
+            {ticketComments.map((comment, index) => (
+                <Comment index={index} usedId={comment.user_id} comment={comment.comment} />
+            ))}
         </div>
-
     )
-
-
 }
 
 export default AddComment

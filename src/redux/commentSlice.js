@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const addCommentAsync = createAsyncThunk(
-    'tickets/addCommentAsync', 
+    'comments/addCommentAsync', 
     async (payload) => {
-        //console.log("WHAT IS PROPS ON COMMENTS", payload.ticket.id)
+        console.log("WHAT IS PAYLOAD ON COMMENTS", payload.ticket.id)
         const response = await fetch(`http://localhost:3001/tickets/${payload.ticket.id}/comments`, {
             method: 'POST', 
             headers: {
@@ -18,8 +18,22 @@ export const addCommentAsync = createAsyncThunk(
         });
         if(response.ok) {
             const comment = await response.json();
-            console.log("WHAT IS COMMENTS ASYNC RESPONSE", comment)
+            //console.log("WHAT IS COMMENTS ASYNC RESPONSE", comment)
             return comment 
+        }
+    }
+);
+
+export const getCommentsAsync = createAsyncThunk(
+    'comments/getCommentsAsync', 
+    async (payload) => {
+        //console.log("WHAT IS PROPS ON GET COMMENTS", `http://localhost:3001/tickets/${payload.ticket}/comments`)
+        const response = await fetch(`http://localhost:3001/tickets/${payload.ticket}/comments`);
+        //console.log('COMMENTS RESPONSE OK?', response)
+        if(response.ok) {
+            const comments = await response.json();
+            //console.log('COMMENTS RESPONSE', comments)
+            return { comments }
         }
     }
 );
@@ -45,28 +59,28 @@ const commentSlice = createSlice({
     name: "comments",
     initialState: [],
     reducers: {
-        addComment: (state, action) => {
-            const newComment = {
-                comment: action.payload.comment, 
-            };
-            state.push(newComment);
-        }, 
-        showComments: (state, action) => {
-            const copyTickets = [...state]
-                //console.log("GET Ticket", copyTickets)
-                return copyTickets
-        },
+        // addComment: (state, action) => {
+        //     const newComment = {
+        //         comment: action.payload.comment, 
+        //     };
+        //     state.push(newComment);
+        // }, 
+        // showComments: (state, action) => {
+        //     const copyTickets = [...state]
+        //         //console.log("GET Ticket", copyTickets)
+        //         return copyTickets
+        // },
         // deleteComment: (state, action) => {
         //     return state.filter((comment) => comment.id !== action.payload.id)
         // },
     },
     extraReducers: {
         [getCommentsAsync.fulfilled]: (state, action) => {
-            //console.log("TICKETS IN REDUCER", action.payload.tickets)
+            console.log("GET COMMENTS FROM REDUCER", action.payload.comments)
             return action.payload.comments
         },
         [addCommentAsync.fulfilled]: (state, action) => {
-            console.log("COMMENTS IN REDUCER", action)
+            console.log("ADD COMMENTS IN REDUCER", action)
             return [...state ,action.payload];
         },
         // [deleteCommentAsync.fulfilled]: (state, action) => {

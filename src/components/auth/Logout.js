@@ -1,19 +1,47 @@
 import React, { Component } from "react";
 import axios from 'axios';
+//import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from 'react-bootstrap';
 
-export default class Logout extends Component {
+// const Logout = (props) => {
+
+//     //this.handleLogoutClick = this.handleLogoutClick.bind(this);
+//     console.log("WHAT IS LOGOUT PROPS", props.currentUser)
+//     //const history = useHistory();
+
+//       const handleLogoutClick = () => {
+//           axios.delete(`http://localhost:3001/users/${props.currentUser[0].user.user_id}`)
+//           .then(response => {
+//               props.history.push('/')
+//           })
+//           .catch(error => {
+//               console.log("logout error", error)
+//           })
+//       }
+      
+
+//     return (
+//         <div>
+//             <Button onClick={() => handleLogoutClick()}>Logout</Button>
+//         </div>
+//     );  
+// }
+
+// export default Logout; 
+
+class Logout extends Component {
 
     constructor(props) {
         super(props);
 
         this.handleLogoutClick = this.handleLogoutClick.bind(this);
+        console.log("WHAT IS LOGOUT PROPS", this.props)
       }
 
       handleLogoutClick() {
           axios
-          .delete("http://localhost:3001/logout")
+          .delete(`http://localhost:3001/users/${this.props.currentUser.id}`)
           .then(response => {
               this.props.handleLogout();
           })
@@ -21,6 +49,7 @@ export default class Logout extends Component {
               console.log("logout error", error)
           })
       }
+      
 
     render() {
         return (
@@ -31,30 +60,4 @@ export default class Logout extends Component {
     }
 }
 
-
-// import React, { Component } from "react";
-// import axios from 'axios';
-
-// const Logout = (props) => {
-
-//     const handleLogoutClick = () => {
-//         axios
-//         .delete("http://localhost:3001/logout", { withCredentials: true })
-//         .then(response => {
-//             props.handleLogout();
-//         })
-//         .catch(error => {
-//               console.log("logout error", error)
-//         })
-//     }
-
-//     return (
-//         <div>
-//             <button onClick={() => handleLogoutClick()}>Logout</button>
-//         </div>
-//     );
-
-
-// }
-
-// export default Logout;
+export default Logout; 

@@ -128,7 +128,7 @@ const EditTicket = ({ id, onHide }) => {
                     </form>
                 </div>
                 <div>
-                    <Comments />
+                    <Comments id={selectedTicket.id}/>
                 </div>
                 <div>
                     <AddComment id={selectedTicket.id}/>

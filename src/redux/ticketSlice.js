@@ -48,30 +48,6 @@ export const addTicketAsync = createAsyncThunk(
     }
 );
 
-export const addCommentAsync = createAsyncThunk(
-    'tickets/addCommentAsync', 
-    async (payload) => {
-        //console.log("WHAT IS PROPS ON COMMENTS", payload.ticket.id)
-        const response = await fetch(`http://localhost:3001/tickets/${payload.ticket.id}/comments`, {
-            method: 'POST', 
-            headers: {
-                'Content-Type': 'Application/json',
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-            },
-            body: JSON.stringify({
-                //comments: { 
-                comment: payload.comment,
-                //ticket_id: payload.ticket.id
-            })
-        });
-        if(response.ok) {
-            const comment = await response.json();
-            console.log("WHAT IS COMMENTS ASYNC RESPONSE", comment)
-            return comment 
-        }
-    }
-);
-
 export const toggleStatusAsync = createAsyncThunk(
     'tickets/toggleStatusAsync', 
     async (payload) => {
@@ -122,12 +98,6 @@ const ticketSlice = createSlice({
             };
             state.push(newTicket);
         }, 
-        addComment: (state, action) => {
-            const newComment = {
-                comment: action.payload.comment, 
-            };
-            state.push(newComment);
-        }, 
         showTicket: (state, action) => {
             const copyTickets = [...state]
                 //console.log("GET Ticket", copyTickets)
@@ -165,12 +135,7 @@ const ticketSlice = createSlice({
             return action.payload.ticket
         },
         [addTicketAsync.fulfilled]: (state, action) => {
-            //console.log("WHAT IS THIS TICKY", action)
-            console.log("WHAT IS THIS ARRAY", [...state ,action.payload])
-            return [...state ,action.payload];
-        },
-        [addCommentAsync.fulfilled]: (state, action) => {
-            console.log("COMMENTS IN REDUCER", action)
+            //console.log("WHAT IS THIS ARRAY", [...state ,action.payload])
             return [...state ,action.payload];
         },
         [toggleStatusAsync.fulfilled]: (state, action) => {

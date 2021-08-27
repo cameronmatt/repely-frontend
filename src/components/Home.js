@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Registration from "./auth/Registration";
 import Login from "./auth/Login";
 //import Logout from "./auth/Logout";
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
