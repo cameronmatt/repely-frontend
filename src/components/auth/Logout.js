@@ -15,7 +15,6 @@ const Logout = (props) => {
         history.push('/')
       }
       
-
     return (
         <div>
             <Button onClick={() => handleLogoutClick()}>Logout</Button>

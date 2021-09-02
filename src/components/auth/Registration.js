@@ -27,7 +27,7 @@ export default class Registration extends Component {
     }
 
     handleSubmit(event) {
-        axios.post("http://localhost:3001/users/create", {
+        axios.post("http://localhost:3001/auth/signup", {
             user:{ 
             username: this.state.username,
             email: this.state.email, 
