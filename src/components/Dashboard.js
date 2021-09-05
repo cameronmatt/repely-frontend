@@ -28,17 +28,18 @@ const Dashboard = () => {
           dispatch(getCurrentUserAsync())
       }, [dispatch, localStorage])
       
-      const user = useSelector((state) => state.user[0].status);
+      const user = useSelector((state) => state.user[0]);
       console.log("CURRENT USER", user)
 
   const[show,popup]=useState(false)
   const modalOpen = () => popup(true)
   const modalClose = () => popup(false)
 
+
    return (
     <div>
-      {localStorage.getItem('jwt')
-            ?
+      {/* {localStorage.getItem('jwt')
+            ? */}
             <Fragment>    
               <div className="navbar navbar-expand-md navbar-dark bg-light">
                 <Header>Repely {'\uD83E\uDD9F'}</Header>
@@ -66,9 +67,9 @@ const Dashboard = () => {
                 <TicketList />
               </div>
             </Fragment> 
-        :
+        {/* :
         <Home />
-      }
+      } */}
     </div>
    )}
 
