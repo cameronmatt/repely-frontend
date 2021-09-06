@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import Logout from "./auth/Logout";
 import Home from './Home'
 import { Fragment } from "react";
+import { useHistory } from "react-router-dom";
 
 export const Header = styled.div`
   font-size: 40px;
@@ -23,6 +24,7 @@ export const ButtonStyle = styled.div`
 const Dashboard = () => {
 
       const dispatch = useDispatch();
+      const history = useHistory();
 
       useEffect(() => {
           dispatch(getCurrentUserAsync())
@@ -34,6 +36,28 @@ const Dashboard = () => {
   const[show,popup]=useState(false)
   const modalOpen = () => popup(true)
   const modalClose = () => popup(false)
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("jwt");
+    console.log('IS USER LOGGED IN', userToken)
+    if (userToken) {
+      history.push("/dashboard")
+  } else {
+      history.push("/")
+  }
+}, [])
+
+  
+
+
+  // const useLoggedIn = (userToken) => {
+  //   console.log('IS USER LOGGED IN', userToken)
+  //   if (data.jwt) {
+  //       this.props.history.push("/dashboard")
+  //   } else {
+  //       this.props.history.push("/")
+  //   }
+  // }
 
 
    return (
@@ -71,6 +95,7 @@ const Dashboard = () => {
         <Home />
       } */}
     </div>
-   )}
-
+   )
+}
+  
 export default Dashboard;

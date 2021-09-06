@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Registration from "./auth/Registration";
 import Login from "./auth/Login";
-//import Logout from "./auth/Logout";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
@@ -42,7 +41,6 @@ export default class Home extends Component {
         super(props);
         console.log("WHAT IS THIS USER", this.state.currentUser)
         this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
-        //this.handleLogoutClick = this.handleLogoutClick.bind(this);
         this.state = {
             currentUser: this.props.current_user
           }
@@ -61,8 +59,10 @@ export default class Home extends Component {
 
       handleSuccessfulAuth(data) {
         //   this.props.handleLogin(data);
-        console.log('LOGIN data', data)
-        this.props.history.push("/dashboard")
+        console.log('LOGIN data', data.jwt)
+        if (data.jwt) {
+            this.props.history.push("/dashboard")
+        }
       }
 
     render() {
@@ -70,7 +70,6 @@ export default class Home extends Component {
             <Container>
                 <div className="navbar navbar-expand-md navbar-dark bg-light">
                     <Header>Repely {'\uD83E\uDD9F'}</Header>
-                    <p>Status: {this.props.loggedInStatus}</p>
                 </div>
                 <LogReg>
                     <LoginButton>
@@ -83,10 +82,6 @@ export default class Home extends Component {
                         <Button type="submit" size="lg" onClick={this.openRegModal}>Register</Button>
                     </RegisterButton>
                 </LogReg>
-                <div>
-                    {/* <button onClick={() => this.handleLogoutClick()}>Logout</button> */}
-                </div>
-
 
                 <Modal show={this.state.isLoginOpen} onHide={this.closeLoginModal}>
                 <Modal.Header>
