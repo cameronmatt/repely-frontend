@@ -14,7 +14,7 @@ export const getCurrentUserAsync = createAsyncThunk(
         if(response.ok) {
             const user = await response.json();
             //console.log('USER RESPONSE', [{ user }])
-            return [{ user }]
+            return user 
             
         }
     }

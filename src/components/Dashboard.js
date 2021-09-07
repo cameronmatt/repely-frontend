@@ -20,18 +20,30 @@ export const Header = styled.div`
 export const ButtonStyle = styled.div`
   margin: auto;
 `;
+export const Wrapper = styled.div`
+  width: 32%;
+  border: 2px solid #333;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  padding-right: 10px;
+  overflow: hidden;
+`;
+export const Avatar = styled.div`
+width: 30px;
+height: 30px;
+`;
 
 const Dashboard = () => {
 
-      const dispatch = useDispatch();
-      const history = useHistory();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-      useEffect(() => {
-          dispatch(getCurrentUserAsync())
+  useEffect(() => {
+      dispatch(getCurrentUserAsync())
       }, [dispatch, localStorage])
       
-      const user = useSelector((state) => state.user[0]);
-      console.log("CURRENT USER", user)
+  const user = useSelector((state) => state.user);
+  //console.log("CURRENT USER.....ID", user)
 
   const[show,popup]=useState(false)
   const modalOpen = () => popup(true)
@@ -39,26 +51,13 @@ const Dashboard = () => {
 
   useEffect(() => {
     const userToken = localStorage.getItem("jwt");
-    console.log('IS USER LOGGED IN', userToken)
+    //console.log('IS USER LOGGED IN', userToken)
     if (userToken) {
       history.push("/dashboard")
-  } else {
+    } else {
       history.push("/")
-  }
-}, [])
-
-  
-
-
-  // const useLoggedIn = (userToken) => {
-  //   console.log('IS USER LOGGED IN', userToken)
-  //   if (data.jwt) {
-  //       this.props.history.push("/dashboard")
-  //   } else {
-  //       this.props.history.push("/")
-  //   }
-  // }
-
+    }
+  }, [])
 
    return (
     <div>
@@ -81,7 +80,9 @@ const Dashboard = () => {
                   </Modal.Body>
                 </Modal>
                 <div>
-                  <img src={user} alt={user}></img>
+                <Wrapper>
+                  <img src={user.avatar} alt={user.name} className="Avatar"></img>
+                </Wrapper>
                   <Logout currentUser={user}/>
                 </div>
                 

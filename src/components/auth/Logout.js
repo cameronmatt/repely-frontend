@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 const Logout = (props) => {
 
     //this.handleLogoutClick = this.handleLogoutClick.bind(this);
-    console.log("WHAT IS LOGOUT PROPS", props.currentUser)
+    //console.log("WHAT IS LOGOUT PROPS", props.currentUser)
     const history = useHistory();
 
       const handleLogoutClick = () => {
