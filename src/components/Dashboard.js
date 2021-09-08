@@ -19,18 +19,23 @@ export const Header = styled.div`
 `;
 export const ButtonStyle = styled.div`
   margin: auto;
-`;
+`; 
 export const Wrapper = styled.div`
-  width: 32%;
-  border: 2px solid #333;
-  border-radius: 4px;
-  margin-bottom: 25px;
-  padding-right: 10px;
-  overflow: hidden;
+  margin: right;
+  
 `;
-export const Avatar = styled.div`
-width: 30px;
-height: 30px;
+export const Image = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 2px solid #C5C5C5;
+  border-radius: 20px;
+  overflow: hidden;
+  float: left;
+`;
+export const LogoutButton = styled.div`
+  float: right;
+  margin: auto;
+  padding-left: 10px;
 `;
 
 const Dashboard = () => {
@@ -79,12 +84,19 @@ const Dashboard = () => {
                     <AddTicket onHide={modalClose}/>
                   </Modal.Body>
                 </Modal>
-                <div>
                 <Wrapper>
-                  <img src={user.avatar} alt={user.name} className="Avatar"></img>
+                  <Image>
+                    <img src={user.avatar} alt={user.name} style={{
+                        width: "auto",
+                        height: "100%",
+                        resizeMode: "contain",
+                        alignSelf: "center",
+                    }}></img>
+                  </Image>
+                  <LogoutButton>
+                    <Logout currentUser={user}/>
+                  </LogoutButton>
                 </Wrapper>
-                  <Logout currentUser={user}/>
-                </div>
                 
               </div>
 
