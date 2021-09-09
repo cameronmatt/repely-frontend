@@ -38,11 +38,13 @@ export default class Registration extends Component {
         })
         .then(response => {
             console.log("WHAT IS THE RESPONSE", response)
-            if (response.status === 200) {
+            if (response.status === 201) {
                 this.props.handleSuccessfulAuth(response.data);
+                localStorage.setItem("jwt", response.data.jwt)
             } 
         })
         .catch(error => {
+            console.log("Reg error", error)
         });
         event.preventDefault();
     }

@@ -39,8 +39,9 @@ export default class Home extends Component {
 
     constructor(props) {
         super(props);
-        console.log("WHAT IS THIS USER", this.state.currentUser)
+
         this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+        
         this.state = {
             currentUser: this.props.current_user
           }
@@ -59,10 +60,7 @@ export default class Home extends Component {
 
       handleSuccessfulAuth(data) {
         //   this.props.handleLogin(data);
-        console.log('LOGIN data', data.jwt)
-        if (data.jwt) {
             this.props.history.push("/dashboard")
-        }
       }
 
     render() {

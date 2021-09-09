@@ -38,7 +38,7 @@ export default class Login extends Component {
             }
         })
         .catch(error => {
-            console.log("Reg error", error)
+            console.log("Login error", error)
         });
         event.preventDefault();
     }
