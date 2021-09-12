@@ -68,6 +68,7 @@ export default class Login extends Component {
                             required
                         />
                     </Form.Group>
+                    <p></p>
                     <Form.Group>
                         <Button type="submit">Login</Button>
                     </Form.Group>
