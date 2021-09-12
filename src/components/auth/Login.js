@@ -39,6 +39,7 @@ export default class Login extends Component {
         })
         .catch(error => {
             console.log("Login error", error)
+            return error
         });
         event.preventDefault();
     }

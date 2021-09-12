@@ -97,11 +97,12 @@ export default class Registration extends Component {
                     <Form.Group className='mb-2 mr-sm-2'>
                         <Form.Control
                             type="text" 
-                            label="Upload you Avatar"
+                            label="Add the URL to your avatar"
                             name="avatar" 
                             placeholder="Enter URL of your avatar"
                             onChange={this.handleChange}
                             value={this.state.avatar}
+                            required
                         />
                     </Form.Group>
                     <Form.Group>
