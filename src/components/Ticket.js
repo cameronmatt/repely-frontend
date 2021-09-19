@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { toggleStatusAsync, deleteTicketAsync } from '../redux/ticketSlice';
+import { toggleStatusAsync } from '../redux/ticketSlice';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card, Modal } from 'react-bootstrap';
 import EditTicket from './EditTicket'
@@ -21,18 +21,9 @@ const Ticket = (props) => {
 		)
 	}
 
-    // const handleDeleteClick = () => {
-	// 	dispatch(
-	// 		deleteTicketAsync({ id: id, status: "delete" })
-	// 	)
-	// }
-
 	const[show,popup]=useState(false)
   	const modalOpen = () => popup(true)
   	const modalClose = () => popup(false)
-
-
-	  // console.log('what is propssssss', props)
 
 	return (
 		<TicketCard>
